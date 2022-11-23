@@ -16,7 +16,7 @@ app.get('/', (request, response) => {
   })
 
 ///For video streaming
-app.get("/streams/", function (req, res) {
+app.get("/stream/", function (req, res) {
   res.sendFile('index.html', {root: 'server'});
 });
 
