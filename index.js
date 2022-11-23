@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const db = require('./models/queries')
 const port = 3000
-
+const root = "/var/task/server"
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
@@ -25,7 +25,7 @@ app.get("/stream/:videoid", function (req, res) {
 });
 
 app.get("/test/", function (req, res) {
-  res.sendFile('test.html', {root: 'server'});
+  res.sendFile('test.html', {root: root});
 });
 
 //app.get("/video/:videoid", db.getVideo) 
