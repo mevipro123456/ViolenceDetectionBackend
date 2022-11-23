@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const db = require('./models/queries')
 const port = 3000
-const root = "var/task/server"
+const root = "./server"
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
