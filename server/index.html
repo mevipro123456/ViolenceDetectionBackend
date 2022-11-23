@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="queries.js"></script>  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Streaming</title>
+    <style>
+      body {
+        line-height: 1;
+        font-size: 18px;
+        font-family: "Courier New", Courier, monospace;
+        color: #444;
+        padding: 0 10px;
+      }
+      .center {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+      html, body {
+        margin: 0;
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table class="center" id="videoTable"></table>
+    <div class="center">
+      <button onclick="myFunction(0)">Enable/Disable Cam 1</button>
+      <button onclick="myFunction(1)">Enable/Disable Cam 2</button>
+      <button onclick="myFunction(2)">Enable/Disable Cam 3</button>
+      <button onclick="myFunction(3)">Enable/Disable Cam 4</button>
+    </div>
+  </body>
+
+  <script>
+    // Draw the table with video source
+    var videoTable = "<tr>";
+    const videoId = ["1", "2", "3", "4"];
+    for (let i=0; i < videoId.length; i++) {
+      videoTable += "<td><video id=\"video" + i + "\"width=\"650\" controls muted autoplay loop><source src=\"/video/" + videoId[i] + "\" videoname type=\"video/mp4\"/></video></td>";
+      if ((i+1)%2 == 0) {
+        videoTable += "</tr><tr>";
+      }
+    } 
+    videoTable += "</tr>";
+    document.getElementById("videoTable").innerHTML = videoTable;
+
+    // Hides video visible / hidden
+    function myFunction() {
+      if (document.getElementById("video" + arguments[0]).style.visibility == "hidden") {
+        document.getElementById("video" + arguments[0]).style.visibility = "visible";
+      } else {
+        document.getElementById("video" + arguments[0]).style.visibility = "hidden";
+      }
+    }
+    </script>
+</html>
