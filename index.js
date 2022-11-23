@@ -24,7 +24,12 @@ app.get("/stream/:videoid", function (req, res) {
   res.sendFile('webcam.html', {root: 'server'});
 });
 
-app.get("/video/:videoid", db.getVideo) 
+app.get("/test/", function (req, res) {
+  res.sendFile('test.html', {root: 'server'});
+});
+
+//app.get("/video/:videoid", db.getVideo) 
+app.get("/video/:videoid", db.getTest)
 
 //For account table
 app.get('/users/', db.getUsers)
