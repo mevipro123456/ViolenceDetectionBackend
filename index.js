@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const db = require('./models/queries')
 const port = 3000
-const root = "./server"
+
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
@@ -14,22 +14,6 @@ app.use(
 app.get('/', (request, response) => {
    response.json({ info: 'Node.js, Express, and Postgres API' })
   })
-
-///For video streaming
-app.get("/stream/", function (req, res) {
-  res.sendFile('index.html', {root: 'server'});
-});
-
-app.get("/stream/:videoid", function (req, res) {
-  res.sendFile('webcam.html', {root: 'server'});
-});
-
-app.get("/test/", function (req, res) {
-  res.sendFile('test.html', {root: root});
-});
-
-//app.get("/video/:videoid", db.getVideo) 
-app.get("/video/:videoid", db.getTest)
 
 //For account table
 app.get('/users/', db.getUsers)
