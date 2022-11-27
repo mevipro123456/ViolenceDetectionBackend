@@ -15,17 +15,6 @@ app.get('/', (request, response) => {
    response.json({ info: 'Node.js, Express, and Postgres API' })
   })
 
-///For video streaming
-app.get("/stream/", function (req, res) {
-  res.sendFile('index.html', {root: 'server'});
-});
-
-app.get("/stream/:videoid", function (req, res) {
-  res.sendFile('webcam.html', {root: 'server'});
-});
-
-app.get("/video/:videoid", db.getVideo) 
-
 //For account table
 app.get('/users/', db.getUsers)
 app.get('/users/name/:name', db.getUserByName)

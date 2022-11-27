@@ -1,4 +1,3 @@
-const fs = require("fs")
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
@@ -7,58 +6,6 @@ const pool = new Pool({
   password: 'vOphuc20751',
   port: 5432,
 })
-
-const getVideo = (request, response) => {
-///Ensure there is a range given for the video
-  const range = request.headers.range;
-  if (!range) {
-    response.status(400).send("Requires Range header");
-  }
-
-  const videoid = request.params.videoid
-  var videoname
-
-  if (videoid == 1) {
-    videoname = "video/demo1.mp4"
-  }
-  else if (videoid == 2) {
-    videoname = "video/demo2.mp4"
-  }
-  else if (videoid == 3) { 
-    videoname = "video/demo3.mp4"
-  }
-  else if (videoid == 4) {
-    videoname = "video/demo4.mp4"
-  }
-
-  ///Get video stats
-  const videoPath = videoname;
-  const videoSize = fs.statSync(videoname).size;
-
-  ///Parse Range
-  ///Example: "bytes=32324-"
-  const CHUNK_SIZE = 10 ** 6; // 1MB
-  const start = Number(range.replace(/\D/g, ""));
-  const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-
-  ///Create headers
-  const contentLength = end - start + 1;
-  const headers = {
-    "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-    "Accept-Ranges": "bytes",
-    "Content-Length": contentLength,
-    "Content-Type": "video/mp4",
-};
-
-  ///HTTP Status 206 for Partial Content
-  response.writeHead(206, headers);
-
-  ///create video read stream for this particular chunk
-  const videoStream = fs.createReadStream(videoPath, { start, end });
-
-  ///Stream the video chunk to the client
-  videoStream.pipe(response);
-}
 
 //For account table
 
@@ -610,8 +557,6 @@ const deleteCamera = (request, response) => {
 
 
   module.exports = {
-    getVideo, 
-
     getUsers,
     getUserByName,
     getUserByEmail,
