@@ -7,7 +7,7 @@ const pool = new Pool({
   port: 5432,
 })
 
-///List all contact in table, sort by id
+//List all contact in table, sort by id
 const getContacts = (request, response) => {
     pool.query('SELECT * FROM contact ORDER BY contact_id ASC', (error, results) => {
       if (error) {
@@ -17,7 +17,7 @@ const getContacts = (request, response) => {
     })
   }
   
-  ///Find contact by email
+  //Find contact by email
   const getContactByEmail = (request, response) => {
     const email = request.params.email
     pool.query('SELECT * FROM contact WHERE email = $1', [email], (error, results) => {
@@ -28,7 +28,7 @@ const getContacts = (request, response) => {
     })
   }
   
-  ///Find contact by phone
+  //Find contact by phone
   const getContactByPhone = (request, response) => {
     const phone = request.params.phone
     pool.query('SELECT * FROM contact WHERE phone = $1', [phone], (error, results) => {
@@ -39,7 +39,7 @@ const getContacts = (request, response) => {
     })
   }
   
-  ///Add a new contact (has to have data in account table before adding)
+  //Add a new contact (has to have data in account table before adding)
   const createContact = (request, response) => {
     const { account_id, email, phone, address } = request.body
     pool.query('INSERT INTO contact (account_id, email, phone, address) VALUES ($1, $2, $3, $4) RETURNING *', [account_id, email, phone, address], (error, results) => {
@@ -50,7 +50,7 @@ const getContacts = (request, response) => {
     })
   }
   
-  ///Update an existing contact
+  //Update an existing contact
   const updateContact = (request, response) => {
     const contact_id = parseInt(request.params.id)
     const { email, phone, address } = request.body
@@ -66,7 +66,7 @@ const getContacts = (request, response) => {
     )
   }
   
-  ///Delete a contact (update is_deleted flag to true)
+  //Delete a contact (update is_deleted flag to true)
   const deleteContact = (request, response) => {
     const contact_id = parseInt(request.params.id)
     pool.query('UPDATE contact SET is_deleted = TRUE WHERE contact_id = $1', [contact_id], (error, results) => {

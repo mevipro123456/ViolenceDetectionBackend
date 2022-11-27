@@ -7,7 +7,7 @@ const pool = new Pool({
   port: 5432,
 })
 
-///List all carts in table, sort by id
+//List all carts in table, sort by id
 const getCarts = (request, response) => {
     pool.query('SELECT * FROM cart ORDER BY order_id ASC', (error, results) => {
       if (error) {
@@ -17,7 +17,7 @@ const getCarts = (request, response) => {
     })
   }
   
-  ///Add a new cart
+  //Add a new cart
   const createCart = (request, response) => {
     const { account_id, total_price } = request.body
   
@@ -29,7 +29,7 @@ const getCarts = (request, response) => {
     })
   }
   
-  ///Update cart price
+  //Update cart price
   const updateCart = (request, response) => {
     const order_id = parseInt(request.params.id)
     const { total_price } = request.body
@@ -45,7 +45,7 @@ const getCarts = (request, response) => {
     )
   }
   
-  ///Delete cart (update is_deleted flag to true)
+  //Delete cart (update is_deleted flag to true)
   const deleteCart = (request, response) => {
     const order_id = parseInt(request.params.id)
     pool.query('UPDATE cart SET is_deleted = TRUE WHERE order_id = $1', [order_id], (error, results) => {

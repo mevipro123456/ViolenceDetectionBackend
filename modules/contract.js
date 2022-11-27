@@ -7,7 +7,7 @@ const pool = new Pool({
   port: 5432,
 })
 
-///List all contracts in table, sort by id
+//List all contracts in table, sort by id
 const getContracts = (request, response) => {
     pool.query('SELECT * FROM contract ORDER BY contract_id ASC', (error, results) => {
       if (error) {
@@ -17,7 +17,7 @@ const getContracts = (request, response) => {
     })
   }
   
-  ///Add a new contract
+  //Add a new contract
   const createContract = (request, response) => {
     const { start_date, end_date, order_service_id, account_id } = request.body
   
@@ -29,7 +29,7 @@ const getContracts = (request, response) => {
     })
   }
   
-  ///Update contract
+  //Update contract
   const updateContract = (request, response) => {
     const contract_id = parseInt(request.params.id)
     const { start_date, end_date } = request.body
@@ -45,7 +45,7 @@ const getContracts = (request, response) => {
     )
   }
   
-  ///Delete contract (update is_deleted flag to true)
+  //Delete contract (update is_deleted flag to true)
   const deleteContract = (request, response) => {
     const contract_id = parseInt(request.params.id)
     pool.query('UPDATE contract SET is_deleted = TRUE WHERE contract_id = $1', [contract_id], (error, results) => {
