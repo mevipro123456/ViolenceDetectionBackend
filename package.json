@@ -1,8 +1,11 @@
 {
   "name": "nodejs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Violence Detection API",
   "main": "index.js",
+  "engines" :{
+    "node": "14.x"
+  },
   "dependencies": {
     "corepack": "^0.14.1",
     "express": "^4.18.2",
@@ -11,7 +14,7 @@
     "pg": "^8.8.0"
   },
   "scripts": {
-    "start": "nodemon server/index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
