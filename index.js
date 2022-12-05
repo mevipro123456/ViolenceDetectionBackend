@@ -35,10 +35,10 @@ app.post('/users/', dbAccount.createUser)
 app.put('/users/:id', dbAccount.updateUser)
 app.put('/users/delete/:id', dbAccount.deleteUser)
 
-//For register
+///For register
 app.post('/register/', dbAccount.createUser)
 
-//For login
+///For login
 app.post('/login/', dbAccount.loginUser)
 
 //For contact table
