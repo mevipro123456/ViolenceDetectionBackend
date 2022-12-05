@@ -98,3 +98,5 @@ app.listen(port, () => {
     console.log(`App running on port ${port}.`)
   })
 
+// Export the Express API
+module.exports = app;

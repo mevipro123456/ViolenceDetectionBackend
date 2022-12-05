@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Violence Detection API",
   "main": "index.js",
-  "engines": {
-    "node": "14.x"
-  },
   "dependencies": {
     "corepack": "^0.14.1",
     "express": "^4.18.2",
