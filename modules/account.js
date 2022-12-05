@@ -17,6 +17,17 @@ const getUsers = (request, response) => {
     })
   }
 
+//Find a user using id
+const getUserById = (request, response) => {
+  const id = request.params.id;
+    pool.query('SELECT * FROM account WHERE account_id = $1', [id], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).json(results.rows)
+    })
+  }
+
 //Find a user using name
 const getUserByName = (request, response) => {
   const name = request.params.name;
@@ -90,6 +101,7 @@ const deleteUser = (request, response) => {
 
   module.exports = {
     getUsers,
+    getUserById,
     getUserByName,
     getUserByEmail,
     getUserByPhone,

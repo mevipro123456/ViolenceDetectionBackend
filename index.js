@@ -27,6 +27,7 @@ app.get('/', (request, response) => {
 
 //For account table
 app.get('/users/', dbAccount.getUsers)
+app.get('/users/id/:id', dbAccount.getUserById)
 app.get('/users/name/:name', dbAccount.getUserByName)
 app.get('/users/email/:email', dbAccount.getUserByEmail)
 app.get('/users/phone/:phone', dbAccount.getUserByPhone)
@@ -42,11 +43,11 @@ app.post('/contacts/', dbContact.createContact)
 app.put('/contacts/:id', dbContact.updateContact)
 app.put('/contacts/delete/:id', dbContact.deleteContact)
 
-//For cart table
-app.get('/carts/', dbCart.getCarts)
-app.post('/carts/', dbCart.createCart)
-app.put('/carts/:id', dbCart.updateCart)
-app.put('/carts/delete/:id', dbCart.deleteCart)
+// //For cart table
+// app.get('/carts/', dbCart.getCarts)
+// app.post('/carts/', dbCart.createCart)
+// app.put('/carts/:id', dbCart.updateCart)
+// app.put('/carts/delete/:id', dbCart.deleteCart)
 
 //For order table
 app.get('/orders/', dbOrder.getOrders)
