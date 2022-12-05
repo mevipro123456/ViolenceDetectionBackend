@@ -13,7 +13,10 @@ const getServices = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).json(results.rows)
+      response.status(200).json({
+        message: "OK", 
+        status: "200", 
+        body: results.rows})
     })
   }
   
@@ -24,7 +27,10 @@ const getServiceByName = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).json(results.rows)
+        response.status(200).json({
+          message: "OK", 
+          status: "200", 
+          body: results.rows})
       })
     }
   

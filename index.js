@@ -35,6 +35,12 @@ app.post('/users/', dbAccount.createUser)
 app.put('/users/:id', dbAccount.updateUser)
 app.put('/users/delete/:id', dbAccount.deleteUser)
 
+//For register
+app.post('/register/', dbAccount.createUser)
+
+//For login
+app.post('/login/', dbAccount.loginUser)
+
 //For contact table
 app.get('/contacts/', dbContact.getContacts)
 app.get('/contacts/email/:email', dbContact.getContactByEmail)

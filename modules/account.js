@@ -7,13 +7,30 @@ const pool = new Pool({
   port: 5432,
 })
 
+//Login user
+const loginUser = (request, response) => {
+  const { email, password } = request.body
+  pool.query('SELECT * FROM account WHERE email = $1 AND password = $2', [email, password], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json({
+      message: "OK", 
+      status: "200", 
+      body: results.rows})
+  })
+}
+
 //List all users in table, sort by id
 const getUsers = (request, response) => {
     pool.query('SELECT * FROM account ORDER BY account_id ASC', (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json(results.rows)
+      response.status(200).json({
+        message: "OK", 
+        status: "200", 
+        body: results.rows})
     })
   }
 
@@ -24,7 +41,10 @@ const getUserById = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).json(results.rows)
+      response.status(200).json({
+        message: "OK", 
+        status: "200", 
+        body: results.rows})
     })
   }
 
@@ -35,7 +55,10 @@ const getUserByName = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).json(results.rows)
+      response.status(200).json({
+        message: "OK", 
+        status: "200", 
+        body: results.rows})
     })
   }
 
@@ -46,7 +69,10 @@ const getUserByEmail = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).json(results.rows)
+      response.status(200).json({
+        message: "OK", 
+        status: "200", 
+        body: results.rows})
     })
   }
 
@@ -57,7 +83,10 @@ const getUserByPhone = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).json(results.rows)
+      response.status(200).json({
+        message: "OK", 
+        status: "200", 
+        body: results.rows})
     })
   }
 
@@ -100,6 +129,7 @@ const deleteUser = (request, response) => {
   }
 
   module.exports = {
+    loginUser,
     getUsers,
     getUserById,
     getUserByName,
