@@ -5,6 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "corepack": "^0.14.1",
+    "dot-env": "^0.0.1",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "nodemon": "^2.0.20",
     "npm": "^8.19.2",
@@ -18,5 +20,3 @@
   "author": "",
   "license": "ISC"
 }
-
-

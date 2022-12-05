@@ -1,11 +1,4 @@
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'VD',
-  password: 'vOphuc20751',
-  port: 5432,
-})
+const pool =  require('../config')
 
 //List all contracts in table, sort by id
 const getContracts = (request, response) => {
