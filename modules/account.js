@@ -4,13 +4,26 @@ const pool =  require('../config')
 const loginUser = (request, response) => {
   const { email, password } = request.body
   pool.query('SELECT * FROM account WHERE email = $1 AND password = $2', [email, password], (error, results) => {
-    if (error) {
-      throw error
+    if (!email) {
+      response.status(401).json({
+        message: "Login not successful",
+        status: "401",
+        error: "Email not found",
+      })
     }
-    response.status(200).json({
-      message: "OK", 
-      status: "200", 
-      body: results.rows})
+    else if (!password) {
+      response.status(401).json({
+        message: "Login not successful",
+        status: "401",
+        error: "Wrong password",
+      })
+    }
+    else {
+      response.status(200).json({
+        message: "OK", 
+        status: "200", 
+        body: results.rows})
+    }
   })
 }
 
