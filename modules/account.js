@@ -11,21 +11,7 @@ const loginUser = (request, response) => {
       response.status(400).json({
         message: "Login not successful",
         status: "400",
-        error: "User not found",
-      })
-    }
-    else if (!email) {
-      response.status(401).json({
-        message: "Login not successful",
-        status: "401",
-        error: "Email field empty",
-      })
-    }
-    else if (!password) {
-      response.status(401).json({
-        message: "Login not successful",
-        status: "401",
-        error: "Password field empty",
+        error: "Wrong email or password",
       })
     }
     else {
