@@ -7,8 +7,8 @@ const getServices = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -21,8 +21,8 @@ const getServiceByName = (request, response) => {
           throw error
         }
         response.status(200).json({
-          message: "OK", 
-          status: "200", 
+          message: `OK`, 
+          status: `200`, 
           body: results.rows})
       })
     }
@@ -34,7 +34,9 @@ const createService = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`Service created with ID: ${results.rows[0].service_id}`)
+      response.status(201).json({
+        message: `Service created with ID: ${results.rows[0].service_id}`,
+        message: `201`})
     })
   }
   
@@ -49,7 +51,9 @@ const updateService = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Service updated for ID: ${service_id}`)
+        response.status(200).json({
+          message: `Service updated for ID: ${service_id}`,
+          status: `200`})
       }
     )
   }
@@ -61,7 +65,9 @@ const deleteService = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Delete flag updated for ID: ${service_id}`)
+      response.status(200).json({
+        message: `Delete flag updated for ID: ${service_id}`,
+        status: `200`})
     })
   }
   

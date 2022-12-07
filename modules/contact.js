@@ -7,8 +7,8 @@ const getContacts = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -21,8 +21,8 @@ const getContacts = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -35,8 +35,8 @@ const getContacts = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -48,7 +48,9 @@ const getContacts = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`Contact added with ID: ${results.rows[0].contact_id}`)
+      response.status(201).json({
+        message: `Contact added with ID: ${contact_id}`,
+        status: `201`})
     })
   }
   
@@ -63,7 +65,9 @@ const getContacts = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Contact modified with ID: ${contact_id}`)
+        response.status(200).json({
+          message: `Contact information updated for ID: ${contact_id}`,
+          status: `200`})
       }
     )
   }
@@ -75,7 +79,9 @@ const getContacts = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Delete flag updated for ID: ${contact_id}`)
+      response.status(200).json({
+        message: `Contact ID: ${contact_id} removed`,
+        status: `200`})
     })
   }
 

@@ -9,15 +9,15 @@ const loginUser = (request, response) => {
     }
     else if (results.rowCount == 0) {
       response.status(400).json({
-        message: "Login not successful",
-        status: "400",
-        error: "Wrong email or password",
+        message: `Login not successful`,
+        status: `400`,
+        error: `Wrong email or password`,
       })
     }
     else {
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     }
   })
@@ -30,8 +30,8 @@ const getUsers = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -44,8 +44,8 @@ const getUserById = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -58,8 +58,8 @@ const getUserByName = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -72,8 +72,8 @@ const getUserByEmail = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -86,8 +86,8 @@ const getUserByPhone = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -99,7 +99,9 @@ const createUser = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`User added with ID: ${results.rows[0].account_id}`)
+      response.status(201).json({
+        message: `User created with ID: ${account_id}`,
+        status: `201`})
     })
   }
 
@@ -114,7 +116,9 @@ const updateUser = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`User modified with ID: ${account_id}`)
+        response.status(200).json({
+          message: `User information updated for ID: ${account_id}`,
+          status: `200`})
       }
     )
   }
@@ -126,7 +130,9 @@ const deleteUser = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Delete flag updated for ID: ${account_id}`)
+      response.status(200).json({
+        message: `User with ID: ${account_id} deleted`,
+        status: `200`})
     })
   }
 

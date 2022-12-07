@@ -7,8 +7,8 @@ const getCamera = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -21,8 +21,8 @@ const getCameraByName = (request, response) => {
           throw error
         }
         response.status(200).json({
-          message: "OK", 
-          status: "200", 
+          message: `OK`, 
+          status: `200`, 
           body: results.rows})
       })
     }
@@ -35,8 +35,8 @@ const getCameraByModule = (request, response) => {
           throw error
         }
         response.status(200).json({
-          message: "OK", 
-          status: "200", 
+          message: `OK`, 
+          status: `200`, 
           body: results.rows})
       })
     }
@@ -48,7 +48,9 @@ const createCamera = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`Camera add with ID: ${results.rows[0].camera_id}`)
+      response.status(201).json({
+        message: `Camera added with ID: ${camera_id}`,
+        status: "201"})
     })
   }
   
@@ -63,7 +65,9 @@ const updateCamera = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Camera updated for ID: ${camera_id}`)
+        response.status(200).json({
+          message: `Camera information updated for ID: ${camera_id}`,
+          status: `200`})
       }
     )
   }
@@ -75,7 +79,9 @@ const deleteCamera = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Delete flag updated for ID: ${camera_id}`)
+      response.status(200).json({
+        message: `Camera ID: ${camera_id} removed`,
+        status: `200`})
     })
   }
   

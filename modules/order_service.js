@@ -7,8 +7,8 @@ const getOrderServices = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -20,7 +20,9 @@ const createOrderService = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`Service for order created with ID: ${results.rows[0].order_id}`)
+      response.status(201).json({
+        message: `Service for order created with ID: ${order_service_id}`,
+        status: `201`})
     })
   }
   
@@ -35,7 +37,9 @@ const updateOrderService = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Service order prize updated for ID: ${order_service_id}`)
+        response.status(200).json({
+          message: `Service prize updated for ID: ${order_service_id}`,
+          status: `200`})
       }
     )
   }
@@ -47,7 +51,9 @@ const updateOrderService = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Delete flag updated for ID: ${order_service_id}`)
+      response.status(200).json({
+        message: `Service for order ID: ${order_service_id} removed`,
+        status: `200`})
     })
   }
 

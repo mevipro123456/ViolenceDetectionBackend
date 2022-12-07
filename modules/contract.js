@@ -7,8 +7,8 @@ const getContracts = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -21,7 +21,9 @@ const getContracts = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`Contract created with ID: ${results.rows[0].contract_id}`)
+      response.status(201).json({
+        message: `Contract created with ID: ${contract_id}`,
+        status: `201`})
     })
   }
   
@@ -36,7 +38,9 @@ const getContracts = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Contract updated for ID: ${contract_id}`)
+        response.status(200).json({
+          message: `Contract details updated for ID: ${contract_id}`,
+          status: `200`})
       }
     )
   }
@@ -48,7 +52,9 @@ const getContracts = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Delete flag updated for ID: ${contract_id}`)
+      response.status(200).json({
+        message: `Contract ID: ${contract_id} removed`,
+        status: `200`})
     })
   }
 

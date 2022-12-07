@@ -7,8 +7,8 @@ const getCameraServices = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
@@ -20,7 +20,9 @@ const createCameraService = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`Service for camera created with ID: ${results.rows[0].camera_id}`)
+      response.status(201).json({
+        message: `Service for camera created with ID: ${camera_id}`,
+        status: `201`})
     })
   }
   
@@ -35,7 +37,9 @@ const updateCameraService = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Service for camera updated for ID: ${camera_id}`)
+        response.status(200).json({
+          message: `Service for camera updated for ID: ${camera_id}`,
+          status: `200`})
       }
     )
   }
@@ -47,7 +51,9 @@ const updateCameraService = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Delete flag updated for ID: ${camera_id}`)
+      response.status(200).json({
+        message: `Delete flag updated for ID: ${camera_id}`,
+        status: `200`})
     })
   }
 

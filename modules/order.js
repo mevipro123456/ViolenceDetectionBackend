@@ -7,11 +7,25 @@ const getOrders = (request, response) => {
         throw error
       }
       response.status(200).json({
-        message: "OK", 
-        status: "200", 
+        message: `OK`, 
+        status: `200`, 
         body: results.rows})
     })
   }
+
+///Find order by account id
+const getOrderByAccount = (request, response) => {
+  const id = request.params.id;
+  pool.query('SELECT * FROM "order" WHERE account_id = $1',[id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json({
+      message: `OK`, 
+      status: `200`, 
+      body: results.rows})
+  })
+}  
   
   ///Add a new order
   const createOrder = (request, response) => {
@@ -21,7 +35,9 @@ const getOrders = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`Order created with ID: ${results.rows[0].order_id}`)
+      response.status(201).json({
+        message: `Order created with ID: ${order_id}`,
+        status: `201`})
     })
   }
   
@@ -36,7 +52,9 @@ const getOrders = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Order prize updated for ID: ${order_id}`)
+        response.status(200).json({
+          message: `Order prize updated for ID: ${order_id}`,
+          status: `200`})
       }
     )
   }
@@ -48,12 +66,15 @@ const getOrders = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Delete flag updated for ID: ${order_id}`)
+      response.status(200).json({
+        message: `Order ID: ${order_id} removed`,
+        status: `200`})
     })
   }
 
 module.exports = {
     getOrders,
+    getOrderByAccount,
     createOrder,
     updateOrder,
     deleteOrder,

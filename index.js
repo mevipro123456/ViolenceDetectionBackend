@@ -59,6 +59,7 @@ app.put('/contacts/delete/:id', dbContact.deleteContact)
 
 //For order table
 app.get('/orders/', dbOrder.getOrders)
+app.get('/orders/account/:id', dbOrder.getOrderByAccount)
 app.post('/orders/', dbOrder.createOrder)
 app.put('/orders/:id', dbOrder.updateOrder)
 app.put('/orders/delete/:id', dbOrder.deleteOrder)
