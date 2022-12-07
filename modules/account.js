@@ -9,9 +9,8 @@ const loginUser = (request, response) => {
     }
     else if (results.rowCount == 0) {
       response.status(400).json({
-        message: `Login not successful`,
+        message: `Incorrect email or password`,
         status: `400`,
-        error: `Wrong email or password`,
       })
     }
     else {
@@ -29,66 +28,100 @@ const getUsers = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
+      else {
+        response.status(200).json({
+          message: `OK`, 
+          status: `200`, 
+          body: results.rows})
+      }
     })
   }
 
 //Find a user using id
 const getUserById = (request, response) => {
-  const id = request.params.id;
-    pool.query('SELECT * FROM account WHERE account_id = $1', [id], (error, results) => {
+  const { account_id }= request.body
+    pool.query('SELECT * FROM account WHERE account_id = $1', [account_id], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: `Can't find account ID: ${account_id}`,
+          status: `400`,
+        })
+      }
+      else {
+        response.status(200).json({
+          message: `Account found with ID: ${account_id}`, 
+          status: `200`, 
+          body: results.rows})
+      }
     })
   }
 
 //Find a user using name
 const getUserByName = (request, response) => {
-  const name = request.params.name;
+  const { name }= request.body
     pool.query('SELECT * FROM account WHERE name = $1', [name], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: `Can't find account with name: ${name}`,
+          status: `400`,
+        })
+      }
+      else {
+        response.status(200).json({
+          message: `Account found with name: ${name}`, 
+          status: `200`, 
+          body: results.rows})
+      }
     })
   }
 
 //Find a user using email
 const getUserByEmail = (request, response) => {
-  const email = request.params.email;
+  const { email }= request.body
     pool.query('SELECT * FROM account WHERE email = $1', [email], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: `Can't find account with email: ${email}`,
+          status: `400`,
+        })
+      }
+      else{
+        response.status(200).json({
+          message: `Account found with email: ${email}`, 
+          status: `200`, 
+          body: results.rows})
+      } 
     })
   }
 
 //Find a user using phone
 const getUserByPhone = (request, response) => {
-  const phone = request.params.phone;
+  const { phone }= request.body
     pool.query('SELECT * FROM account WHERE phone = $1', [phone], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: `Can't find account with phone: ${phone}`,
+          status: `400`,
+        })
+      }
+      else {
+        response.status(200).json({
+          message: `Account found with phone: ${phone}`, 
+          status: `200`, 
+          body: results.rows})
+      }
     })
   }
 
@@ -99,15 +132,23 @@ const createUser = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).json({
-        message: `User created with ID: ${account_id}`,
-        status: `201`})
+      else if (results.rowCount.email > 0) {
+        response.status(400).json({
+          message: `Email: ${email} already in use`,
+          status: `400`,
+        })
+      }
+      else {
+        response.status(200).json({
+          message: `Account created with ID: ${account_id}`,
+          status: `200`})
+      } 
     })
   }
 
 //Update an existing user
 const updateUser = (request, response) => {
-    const account_id = parseInt(request.params.id)
+    const { account_id }= request.body
     const { email, password, role, name, phone, address } = request.body
     pool.query(
       'UPDATE account SET email = $1, password = $2, role = $3, name = $4, phone = $5, address = $6 WHERE account_id = $7',
@@ -116,23 +157,27 @@ const updateUser = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).json({
-          message: `User information updated for ID: ${account_id}`,
-          status: `200`})
+        else {
+          response.status(200).json({
+            message: `Account information updated for ID: ${account_id}`,
+            status: `200`})
+        }
       }
     )
   }
 
 //Delete a user (update is_deleted flag to true)
 const deleteUser = (request, response) => {
-    const account_id = parseInt(request.params.id)
+    const { account_id }= request.body
     pool.query('UPDATE account SET is_deleted = TRUE WHERE account_id = $1', [account_id], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `User with ID: ${account_id} deleted`,
-        status: `200`})
+      else {
+        response.status(200).json({
+          message: `Account with ID: ${account_id} deleted`,
+          status: `200`})
+      } 
     })
   }
 

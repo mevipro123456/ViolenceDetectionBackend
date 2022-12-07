@@ -6,38 +6,56 @@ const getContacts = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
+      else {
+        response.status(200).json({
+          message: `OK`, 
+          status: `200`, 
+          body: results.rows})
+      }
     })
   }
   
   //Find contact by email
   const getContactByEmail = (request, response) => {
-    const email = request.params.email
+    const { email }= request.body
     pool.query('SELECT * FROM contact WHERE email = $1', [email], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: `Can't find contact with email: ${email}`,
+          status: `400`,
+        })
+      }
+      else {
+        response.status(200).json({
+          message: `Contact found with email: ${email}`, 
+          status: `200`, 
+          body: results.rows})
+      }
     })
   }
   
   //Find contact by phone
   const getContactByPhone = (request, response) => {
-    const phone = request.params.phone
+    const { phone } = request.body
     pool.query('SELECT * FROM contact WHERE phone = $1', [phone], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: `Can't find contact with phone: ${phone}`,
+          status: `400`,
+        })
+      }
+      else {
+        response.status(200).json({
+          message: `Contact found with phone: ${phone}`, 
+          status: `200`, 
+          body: results.rows})
+      } 
     })
   }
   
@@ -48,9 +66,9 @@ const getContacts = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).json({
+      response.status(200).json({
         message: `Contact added with ID: ${contact_id}`,
-        status: `201`})
+        status: `200`})
     })
   }
   

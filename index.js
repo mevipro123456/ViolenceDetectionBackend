@@ -29,13 +29,13 @@ app.get('/', (request, response) => {
 
 //For account table
 app.get('/users/', dbAccount.getUsers)
-app.get('/users/id/:id', dbAccount.getUserById)
-app.get('/users/name/:name', dbAccount.getUserByName)
-app.get('/users/email/:email', dbAccount.getUserByEmail)
-app.get('/users/phone/:phone', dbAccount.getUserByPhone)
+app.get('/users/id/', dbAccount.getUserById)
+app.get('/users/name/', dbAccount.getUserByName)
+app.get('/users/email/', dbAccount.getUserByEmail)
+app.get('/users/phone/', dbAccount.getUserByPhone)
 app.post('/users/', dbAccount.createUser)
-app.put('/users/:id', dbAccount.updateUser)
-app.put('/users/delete/:id', dbAccount.deleteUser)
+app.put('/users/', dbAccount.updateUser)
+app.put('/users/delete/', dbAccount.deleteUser)
 
 ///For register
 app.post('/register/', dbAccount.createUser)
@@ -45,10 +45,10 @@ app.post('/login/', dbAccount.loginUser)
 
 //For contact table
 app.get('/contacts/', dbContact.getContacts)
-app.get('/contacts/email/:email', dbContact.getContactByEmail)
-app.get('/contacts/phone/:phone', dbContact.getContactByPhone)
+app.get('/contacts/email/', dbContact.getContactByEmail)
+app.get('/contacts/phone/', dbContact.getContactByPhone)
 app.post('/contacts/', dbContact.createContact)
-app.put('/contacts/:id', dbContact.updateContact)
+app.put('/contacts/', dbContact.updateContact)
 app.put('/contacts/delete/:id', dbContact.deleteContact)
 
 // //For cart table
