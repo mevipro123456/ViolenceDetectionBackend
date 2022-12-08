@@ -140,7 +140,7 @@ const createUser = (request, response) => {
       }
       else {
         response.status(200).json({
-          message: `Account created with ID: ${account_id}`,
+          message: `Account created with ID: ${results.rows[0].account_id}`,
           status: `200`})
       } 
     })

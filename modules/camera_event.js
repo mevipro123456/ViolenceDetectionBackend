@@ -46,7 +46,7 @@ const createEvent = (request, response) => {
       }
       else {
         response.status(200).json({
-          message: `Event added with ID: ${event_id}`,
+          message: `Event added with ID: ${results.rows[0].event_id}`,
           status: `200`})
       } 
     })

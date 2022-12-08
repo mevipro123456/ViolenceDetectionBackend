@@ -24,7 +24,7 @@ const createSubcription = (request, response) => {
       }
       else {
         response.status(200).json({
-          message: `Subcription added with ID: ${subcription_id}`,
+          message: `Subcription added with ID: ${results.rows[0].subcription_id}`,
           status: `200`})
       } 
     })

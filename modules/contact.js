@@ -68,7 +68,7 @@ const getContacts = (request, response) => {
       }
       else {
         response.status(200).json({
-          message: `Contact added with ID: ${contact_id}`,
+          message: `Contact added with ID: ${results.rows[0].contact_id}`,
           status: `200`})
       }
     })

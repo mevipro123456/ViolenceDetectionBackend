@@ -46,7 +46,7 @@ const createWorkingCamera = (request, response) => {
       }
       else {
         response.status(200).json({
-          message: `Camera created with ID: ${working_camera_id}`,
+          message: `Camera created with ID: ${results.rows[0].working_camera_id}`,
           status: `200`})
       } 
     })
