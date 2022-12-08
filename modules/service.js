@@ -47,14 +47,14 @@ const createService = (request, response) => {
       else{
         response.status(200).json({
           message: `Service created with ID: ${results.rows[0].service_id}`,
-          message: `200`})
+          status: `200`})
       } 
     })
   }
   
 //Update service
 const updateService = (request, response) => {
-    const { name, membership, price, duration,service_id  } = request.body
+    const { name, membership, price, duration, service_id  } = request.body
     pool.query(
       'UPDATE service SET name = $1, membership = $2, price = $3, duration = $4 WHERE service_id = $5',
       [name, membership, price, duration, service_id],

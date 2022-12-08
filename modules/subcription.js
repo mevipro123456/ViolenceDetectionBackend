@@ -15,6 +15,28 @@ const getSubcriptions = (request, response) => {
     })
   }
 
+//Find a subcription using id
+const getSubcriptionById = (request, response) => {
+  const { account_id }= request.body
+    pool.query('SELECT * FROM subcription WHERE account_id = $1', [account_id], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: `Can't find subcription with account ID: ${account_id}`,
+          status: `400`,
+        })
+      }
+      else {
+        response.status(200).json({
+          message: `Subcription found with account ID: ${account_id}`, 
+          status: `200`, 
+          body: results.rows})
+      }
+    })
+  }
+
 //Create new subcription
 const createSubcription = (request, response) => {
     const { start_date, end_date, prize, duration, account_id, service_id } = request.body
