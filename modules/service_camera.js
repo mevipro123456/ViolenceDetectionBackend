@@ -14,7 +14,7 @@ const getCameraServices = (request, response) => {
   }
 
 //Find camera service using service_id
-const getCameraServiceByService = (request, response) => {
+const getCameraServiceByServiceId = (request, response) => {
   const { service_id }= request.body
     pool.query('SELECT * FROM service_camera WHERE service_id = $1', [service_id], (error, results) => {
       if (error) {
@@ -67,7 +67,7 @@ const createCameraService = (request, response) => {
 
 module.exports = {
     getCameraServices,
-    getCameraServiceByService,
+    getCameraServiceByServiceId,
     createCameraService,
     deleteCameraService,
 }
