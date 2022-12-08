@@ -88,6 +88,7 @@ const deleteSubcription = (request, response) => {
 
   module.exports = {
     getSubcriptions,
+    getSubcriptionById,
     createSubcription,
     updateSubcription,
     deleteSubcription
