@@ -8,13 +8,12 @@ const port = process.env.PORT;
 //Declare database
 const dbAccount = require('./modules/account')
 const dbContact = require('./modules/contact')
-const dbCart = require('./modules/cart')
-const dbOrder = require('./modules/order')
-const dbContract = require('./modules/contract')
-const dbOrderService = require('./modules/order_service')
+const dbSubcription = require('./modules/subcription')
 const dbService = require('./modules/service')
-const dbCameraService = require('./modules/service_camera_list')
+const dbCameraService = require('./modules/service_camera')
 const dbCamera = require('./modules/camera')
+const dbWorkingCamera = require('./modules/working_camera')
+const dbCameraEvent = require('./modules/camera_event')
 
 app.use(bodyParser.json())
 app.use(
@@ -49,53 +48,45 @@ app.get('/contacts/email/', dbContact.getContactByEmail)
 app.get('/contacts/phone/', dbContact.getContactByPhone)
 app.post('/contacts/', dbContact.createContact)
 app.put('/contacts/', dbContact.updateContact)
-app.put('/contacts/delete/:id', dbContact.deleteContact)
-
-// //For cart table
-// app.get('/carts/', dbCart.getCarts)
-// app.post('/carts/', dbCart.createCart)
-// app.put('/carts/:id', dbCart.updateCart)
-// app.put('/carts/delete/:id', dbCart.deleteCart)
-
-//For order table
-app.get('/orders/', dbOrder.getOrders)
-app.get('/orders/account/:id', dbOrder.getOrderByAccount)
-app.post('/orders/', dbOrder.createOrder)
-app.put('/orders/:id', dbOrder.updateOrder)
-app.put('/orders/delete/:id', dbOrder.deleteOrder)
-
-//For contract table
-app.get('/contracts/', dbContract.getContracts)
-app.post('/contracts/', dbContract.createContract)
-app.put('/contracts/:id', dbContract.updateContract)
-app.put('/contracts/delete/:id', dbContract.deleteContract)
-
-//For order_service table
-app.get('/orderservices/', dbOrderService.getOrderServices)
-app.post('/orderservices/', dbOrderService.createOrderService)
-app.put('/orderservices/:id', dbOrderService.updateOrderService)
-app.put('/orderservices/delete/:id', dbOrderService.deleteOrderService)
+app.put('/contacts/delete/', dbContact.deleteContact)
 
 //For service table
 app.get('/services/', dbService.getServices)
-app.get('/services/name/:name', dbService.getServiceByName)
+app.get('/services/name/', dbService.getServiceByName)
 app.post('/services/', dbService.createService)
-app.put('/services/:id', dbService.updateService)
-app.put('/services/delete/:id', dbService.deleteService)
+app.put('/services/', dbService.updateService)
+app.put('/services/delete/', dbService.deleteService)
 
-//For service_camera_list table
-app.get('/cameraservices/', dbCameraService.getCameraServices)
-app.post('/cameraservices/', dbCameraService.createCameraService)
-app.put('/cameraservices/:id', dbCameraService.updateCameraService)
-app.put('/cameraservices/delete/:id', dbCameraService.deleteCameraService)
+//For subcription table
+app.get('/subcriptions/', dbSubcription.getSubcriptions)
+app.post('/subcriptions/', dbSubcription.createSubcription)
+app.put('/subcriptions/', dbSubcription.updateSubcription)
+app.put('/subcriptions/delete/', dbSubcription.deleteSubcription)
 
 //For camera table
 app.get('/cameras/', dbCamera.getCamera)
-app.get('/cameras/name/:name', dbCamera.getCameraByName)
-app.get('/cameras/module/:module', dbCamera.getCameraByModule)
 app.post('/cameras/', dbCamera.createCamera)
-app.put('/cameras/:id', dbCamera.updateCamera)
-app.put('/cameras/delete/:id', dbCamera.deleteCamera)
+app.put('/cameras/', dbCamera.updateCamera)
+app.put('/cameras/delete/', dbCamera.deleteCamera)
+
+//For service_camera table
+app.get('/service_camera/', dbCameraService.getCameraServices)
+app.get('/service_camera/service/', dbCameraService.getCameraServiceByService)
+app.post('/service_camera/', dbCameraService.createCameraService)
+app.put('/service_camera/', dbCameraService.deleteCameraService)
+
+//For working_camera table
+app.get('/working_camera/', dbWorkingCamera.getWorkingCameras)
+app.get('/working_camera/id/', dbWorkingCamera.getWorkingCameraById)
+app.post('/working_camera/', dbWorkingCamera.createWorkingCamera)
+app.put('/service_camera/delete/', dbWorkingCamera.deleteWorkingCamera)
+
+//for camera_event table
+app.get('/camera_event/', dbCameraEvent.getEvents)
+app.get('/camera_event/id/', dbCameraEvent.getEventByWorkingCameraId)
+app.post('/camera_event/', dbCameraEvent.createEvent)
+app.put('/camera_event/delete/', dbCameraEvent.deleteEvent)
+
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)

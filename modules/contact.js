@@ -59,23 +59,24 @@ const getContacts = (request, response) => {
     })
   }
   
-  //Add a new contact (has to have data in account table before adding)
+  //Add a new contact
   const createContact = (request, response) => {
     const { account_id, email, phone, address } = request.body
     pool.query('INSERT INTO contact (account_id, email, phone, address) VALUES ($1, $2, $3, $4) RETURNING *', [account_id, email, phone, address], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `Contact added with ID: ${contact_id}`,
-        status: `200`})
+      else {
+        response.status(200).json({
+          message: `Contact added with ID: ${contact_id}`,
+          status: `200`})
+      }
     })
   }
   
   //Update an existing contact
   const updateContact = (request, response) => {
-    const contact_id = parseInt(request.params.id)
-    const { email, phone, address } = request.body
+    const { contact_id, email, phone, address } = request.body
     pool.query(
       'UPDATE contact SET email = $1, phone = $2, address = $3 WHERE contact_id = $4',
       [email, phone, address, contact_id],
@@ -83,23 +84,27 @@ const getContacts = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).json({
-          message: `Contact information updated for ID: ${contact_id}`,
-          status: `200`})
+        else {
+          response.status(200).json({
+            message: `Contact information updated for ID: ${contact_id}`,
+            status: `200`})
+        }
       }
     )
   }
   
   //Delete a contact (update is_deleted flag to true)
   const deleteContact = (request, response) => {
-    const contact_id = parseInt(request.params.id)
+    const { contact_id }= request.body
     pool.query('UPDATE contact SET is_deleted = TRUE WHERE contact_id = $1', [contact_id], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).json({
-        message: `Contact ID: ${contact_id} removed`,
-        status: `200`})
+      else {
+        response.status(200).json({
+          message: `Contact ID: ${contact_id} removed`,
+          status: `200`})
+      }
     })
   }
 
