@@ -39,8 +39,8 @@ const getSubcriptionById = (request, response) => {
 
 //Create new subcription
 const createSubcription = (request, response) => {
-    const { start_date, end_date, prize, duration, account_id, service_id } = request.body
-    pool.query('INSERT INTO subcription (start_date, end_date, prize, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date, end_date, prize, duration, account_id, service_id], (error, results) => {
+    const { start_date, end_date, price, duration, account_id, service_id } = request.body
+    pool.query('INSERT INTO subcription (start_date, end_date, price, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date, end_date, prize, duration, account_id, service_id], (error, results) => {
       if (error) {
         throw error
       }
@@ -54,10 +54,10 @@ const createSubcription = (request, response) => {
 
 //Update subcription
 const updateSubcription = (request, response) => {
-    const { subcription_id, start_date, end_date, prize, duration  }= request.body
+    const { subcription_id, start_date, end_date, price, duration  }= request.body
     pool.query(
       'UPDATE subcription SET start_date = $1, end_date = $2, prize = $3, duration = $4 WHERE subcription_id = $5',
-      [start_date, end_date, prize, duration, subcription_id],
+      [start_date, end_date, price, duration, subcription_id],
       (error, results) => {
         if (error) {
           throw error
