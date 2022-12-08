@@ -40,7 +40,7 @@ const getWorkingCameraById = (request, response) => {
 //Add working camera
 const createWorkingCamera = (request, response) => {
     const { camera_id, subcription_id } = request.body
-    pool.query('INSERT INTO working_account (camera_id, subcription_id) VALUES ($1, $2) RETURNING *', [camera_id, subcription_id], (error, results) => {
+    pool.query('INSERT INTO working_camera (camera_id, subcription_id) VALUES ($1, $2) RETURNING *', [camera_id, subcription_id], (error, results) => {
       if (error) {
         throw error
       }
