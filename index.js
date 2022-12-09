@@ -21,6 +21,8 @@ app.use(
     extended: true,
   })
 )
+const cors = require('cors');
+app.use(cors({ origin: true }));
 
 app.get('/', (request, response) => {
    response.json({ info: 'Node.js, Express, and Postgres API' })
