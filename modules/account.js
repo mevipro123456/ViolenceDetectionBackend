@@ -9,7 +9,7 @@ const loginUser = (request, response) => {
     }
     else if (results.rowCount == 0) {
       response.status(400).json({
-        message: `Incorrect email or password!`,
+        message: `Incorrect email or password! ` + error,
         status: `400`,
       })
     }
