@@ -11,7 +11,8 @@ const loginUser = (request, response) => {
       response.status(400).json({
         message: `Incorrect email or password! `,
         status: `400`,
-        error: error
+        email: email,
+        password: password
       })
     }
     else {
