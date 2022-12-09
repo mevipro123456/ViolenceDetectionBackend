@@ -3,7 +3,7 @@ const pool =  require('../config')
 //Login user
 const loginUser = (request, response) => {
   const { email, password } = request.body
-  pool.query('SELECT * FROM account WHERE email = $1 AND password = $2', [email, password], (error, results) => {
+  pool.query('SELECT * FROM account WHERE email = $1 AND password = $2 AND is_deleted = false', [email, password], (error, results) => {
     if (error) {
       throw error
     }
