@@ -143,13 +143,13 @@ const getUserByPhone = (request, response) => {
 //Add a new user
 const createUser = (request, response) => {
     const { email, password, role, name, phone, address } = request.body
-    if (isEmailExists(email)) {
-      response.status(400).json({
-        message: `Email: ${email} already in use ` + err,
-        status: `400`,
-      })
-    }
-    else{
+    // if (isEmailExists(email)) {
+    //   response.status(400).json({
+    //     message: `Email: ${email} already in use ` + err,
+    //     status: `400`,
+    //   })
+    // }
+    // else{
       pool.query('INSERT INTO account (email, password, role, name, phone, address) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [email, password, role, name, phone, address], (error, results) => {
         if (error) {
           throw error
