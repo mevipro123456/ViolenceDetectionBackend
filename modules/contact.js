@@ -1,5 +1,21 @@
 const pool =  require('../config')
 
+const getContactsByAccountId = (request, response) => {
+  const { account_id }= request.body
+  pool.query('SELECT * FROM contact WHERE account_id = $1', [account_id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    else {
+      response.status(200).json({
+        message: `OK`, 
+        status: `200`, 
+        body: results.rows})
+    }
+  })
+}
+
+
 //List all contact in table, sort by id
 const getContacts = (request, response) => {
     pool.query('SELECT * FROM contact ORDER BY contact_id ASC', (error, results) => {
