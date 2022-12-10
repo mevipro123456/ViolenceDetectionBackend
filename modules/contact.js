@@ -8,7 +8,7 @@ const getContactsByAccountId = (request, response) => {
     }
     else {
       response.status(200).json({
-        message: `OK`, 
+        message: `account_id = ` + account_id, 
         status: `200`, 
         body: results.rows})
     }
@@ -125,6 +125,7 @@ const getContacts = (request, response) => {
   }
 
 module.exports = {
+    getContactsByAccountId,
     getContacts,
     getContactByEmail,
     getContactByPhone,
