@@ -63,7 +63,7 @@ app.put('/services/delete/', dbService.deleteService)
 //For subcription table
 app.get('/subcriptions/', dbSubcription.getSubcriptions)
 app.get('/subcriptions/id/', dbSubcription.getSubcriptionById)
-app.post('/subcriptions/', dbSubcription.createSubcription)
+app.post('/subcriptions/', dbSubcription.createSubcription) 
 app.put('/subcriptions/', dbSubcription.updateSubcription)
 app.put('/subcriptions/delete/', dbSubcription.deleteSubcription)
 

@@ -104,7 +104,20 @@ const getUserByEmail = (request, response) => {
       } 
     })
   }
-
+//Find a user using email
+const isEmailExists = (email) => {
+    pool.query('SELECT * FROM account WHERE email = $1', [email], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else if (results.rowCount == 0) {
+        return false
+      }
+      else {
+        return true
+      } 
+    })
+}
 //Find a user using phone
 const getUserByPhone = (request, response) => {
   const { phone }= request.body
@@ -130,22 +143,31 @@ const getUserByPhone = (request, response) => {
 //Add a new user
 const createUser = (request, response) => {
     const { email, password, role, name, phone, address } = request.body
-    pool.query('INSERT INTO account (email, password, role, name, phone, address) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [email, password, role, name, phone, address], (error, results) => {
-      if (error) {
-        throw error
-      }
-      else if (results.rowCount.email > 0) {
-        response.status(400).json({
-          message: `Email: ${email} already in use`,
-          status: `400`,
-        })
-      }
-      else {
-        response.status(200).json({
-          message: `Account created with ID: ${results.rows[0].account_id}`,
-          status: `200`})
-      } 
-    })
+    if (isEmailExists) {
+      response.status(400).json({
+        message: `Email: ${email} already in use ` + err,
+        status: `400`,
+      })
+    }
+    else{
+      pool.query('INSERT INTO account (email, password, role, name, phone, address) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [email, password, role, name, phone, address], (error, results) => {
+        if (error) {
+          throw error
+        }
+        else if(email == "" || password == "" || name == "" || phone == "" || adress == ""){
+          response.status(400).json({
+            message: `Fields are empty ` + err,
+            status: `400`,
+          })
+        }
+        else {
+          response.status(200).json({
+            message: `Account created with ID: ${results.rows[0].account_id}`,
+            status: `200`})
+        } 
+      })
+    }
+    
   }
 
 //Update an existing user
