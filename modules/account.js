@@ -143,7 +143,7 @@ const getUserByPhone = (request, response) => {
 //Add a new user
 const createUser = (request, response) => {
     const { email, password, role, name, phone, address } = request.body
-    if (isEmailExists) {
+    if (isEmailExists(email)) {
       response.status(400).json({
         message: `Email: ${email} already in use ` + err,
         status: `400`,
