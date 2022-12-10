@@ -106,17 +106,18 @@ const getUserByEmail = (request, response) => {
   }
 //Find a user using email
 const isEmailExists = (email) => {
-    pool.query('SELECT * FROM account WHERE email = $1', [email], (error, results) => {
+  
+    return pool.query('SELECT * FROM account WHERE email = $1', [email], (error, results) => {
       if (error) {
         throw error
       }
+      else if (results.rowCount == 0) {
+        return false
+      }
+      else {
+        return true
+      } 
     })
-    if (results.rowCount == 0) {
-      return false
-    }
-    else {
-      return true
-    } 
 }
 //Find a user using phone
 const getUserByPhone = (request, response) => {
