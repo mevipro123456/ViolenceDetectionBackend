@@ -121,7 +121,7 @@ const isEmailExists = (email) => {
 //Find a user using phone
 const getUserByPhone = (request, response) => {
   const { phone }= request.body
-    pool.query('SELECT * FROM account WHERE phone = $1', [phone], (error, results) => {
+  return pool.query('SELECT * FROM account WHERE phone = $1', [phone], (error, results) => {
       if (error) {
         throw error
       }
