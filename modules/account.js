@@ -105,19 +105,21 @@ const getUserByEmail = (request, response) => {
     })
   }
 //Find a user using email
-const isEmailExists = (email) => {
-  exist = true
-    // pool.query('SELECT * FROM account WHERE email = $1', [email], (error, results) => {
-    //   if (error) {
-    //     throw error
-    //   }
-    //   else if (results.rowCount == 0) {
-    //     exist = false
-    //   }
-    //   else {
-    //     exist = true
-    //   } 
-    // })
+function isEmailExists(email) {
+  exist = false
+  pool.query('SELECT * FROM account WHERE email = $1', [email], (error, results) => {
+    console.log(results.rows)
+      if (error) {
+        throw error
+      }
+      else if (results.rowCount == 0) {
+
+        exist = false
+      }
+      else {
+        exist = true
+      } 
+    })
     return exist
 }
 //Find a user using phone
@@ -147,7 +149,7 @@ const createUser = (request, response) => {
     const { email, password, role, name, phone, address } = request.body
     if (isEmailExists(email)) {
       response.status(200).json({
-        message: `Email: ${email} already in use ` + err,
+        message: `Email: ${email} already in use `,
         status: `400`,
       })
     }
