@@ -199,7 +199,7 @@ const updateUser = (request, response) => {
     const { account_id, email, password, role, name, phone, address }= request.body
     pool.query(
       'UPDATE account SET email = $1, password = $2, role = $3, name = $4, phone = $5, address = $6 WHERE account_id = $7',
-      [email, password, role, name, phone, address, account_id],
+      [email, password, 'user', name, phone, address, account_id],
       (error, results) => {
         if (error) {
           throw error
