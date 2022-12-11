@@ -66,7 +66,7 @@ app.get('/subcriptions/id/', dbSubcription.getSubcriptionById)
 app.post('/subcriptions/', dbSubcription.createSubcription) 
 app.put('/subcriptions/', dbSubcription.updateSubcription)
 app.delete('/subcriptions/delete/', dbSubcription.deleteSubcription)
-app.delete('/subcriptions/delete/', dbSubcription.deleteAllSubcriptions)
+app.delete('/subcriptions/deleteAll/', dbSubcription.deleteAllSubcriptions)
 //For camera table
 app.get('/cameras/', dbCamera.getCamera)
 app.post('/cameras/', dbCamera.createCamera)
