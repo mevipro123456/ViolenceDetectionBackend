@@ -218,7 +218,11 @@ const deleteUser = (request, response) => {
     const { account_id }= request.body
     pool.query('DELETE account WHERE account_id = $1', [account_id], (error, results) => {
       if (error) {
-        throw error
+
+        response.status(200).json({
+          message: "Error, " + error,
+          status: `200`})
+          throw error
       }
       else {
         response.status(200).json({
