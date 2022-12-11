@@ -58,7 +58,25 @@ const createCameraService = (request, response) => {
       }
     })
   }
-  
+  const getAllCamerasOfService = (request, response) => {
+    const { service_id } = request.body
+    pool.query('SELECT c.camera_id, c.info FROM service_camera as sc INNER JOIN camera as sc ON sc.camera_id = c.camera_id WHERE sc.service_id = $1',
+    [service_id], 
+    (error, results) => {
+      if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
+      }
+      else {
+        response.status(200).json({
+          message: `OK`, 
+          status: `200`, 
+          body: results.rows})
+      } 
+    })
+  }
 //Delete camera service (update is_deleted flag to true)
   const deleteCameraServiceByIDs = (request, response) => {
     const { service_id, camera_id } = request.body 
@@ -82,4 +100,5 @@ module.exports = {
     getCameraServiceByServiceId,
     createCameraService,
     deleteCameraServiceByIDs,
+    getAllCamerasOfService
 }

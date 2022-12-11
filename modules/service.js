@@ -17,6 +17,7 @@ const getServices = (request, response) => {
       } 
     })
   }
+
   
 //Find service regisgtered by name
 const getServiceByName = (request, response) => {
@@ -122,5 +123,6 @@ module.exports = {
     createService,
     updateService,
     deleteServiceByServiceID,
-    deleteAllServices
+    deleteAllServices,
+    getAllCamerasOfService
 }
