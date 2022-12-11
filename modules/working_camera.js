@@ -2,12 +2,13 @@ const pool =  require('../config')
 
 //List all working cameras in table, sort by id
 const getWorkingCameras = (request, response) => {
+  
     pool.query('SELECT * FROM working_camera', (error, results) => {
       if (error) {
-        response.status(400).json({
-          message: "Error, " + error,
-          status: `400`}
-        )
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`
+        })
         
       }
       else {
@@ -22,7 +23,7 @@ const getWorkingCameras = (request, response) => {
 //Find working camera using id
 const getWorkingCameraBySubcriptionId = (request, response) => {
     const { subcription_id }= request.body
-      pool.query('SELECT * FROM working_camera WHERE working_camera_id = $1', [subcription_id], (error, results) => {
+      pool.query('SELECT * FROM working_camera WHERE subcription_id = $1', [subcription_id], (error, results) => {
         if (error) {
           response.status(400).json({
             message: "Error, " + error,
@@ -32,7 +33,7 @@ const getWorkingCameraBySubcriptionId = (request, response) => {
         }
         else if (results.rowCount == 0) {
           response.status(400).json({
-            message: `Can't find camera ID: ${subcription_id}`,
+            message: `Can't find camera where subcription ID : ${subcription_id}`,
             status: `400`,
           })
         }
