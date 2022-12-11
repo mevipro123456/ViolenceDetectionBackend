@@ -159,7 +159,15 @@ async function whateverFuncName () {
 //Add a new user
 const createUser = async (request, response) => {
     const { email, password, role, name, phone, address } = request.body
-    if ( await isEmailExists(email)) {
+    console.log(email)
+    if (email == "" || password == "" || name == "" || phone == "" || address == ""
+      || email == undefined || password == undefined || name == undefined || phone == undefined || address == undefined){
+      response.status(400).json({
+        message: `Fields are empty `,
+        status: `400`,
+      })
+    }
+    else if ( await isEmailExists(email)) {
       response.status(200).json({
         message: `Email: ${email} already in use `,
         status: `400`,
