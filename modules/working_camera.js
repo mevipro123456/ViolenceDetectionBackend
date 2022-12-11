@@ -39,7 +39,7 @@ const getWorkingCameraBySubcriptionId = (request, response) => {
         }
         else {
           response.status(200).json({
-            message: `Camera found with ID: ${working_camera_id}`, 
+            message: `Camera found with ID: ${subcription_id}`, 
             status: `200`, 
             body: results.rows})
         }
