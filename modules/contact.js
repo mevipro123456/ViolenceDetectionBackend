@@ -97,18 +97,9 @@ const getContacts = (request, response) => {
       'UPDATE contact SET email = $1, phone = $2, address = $3 WHERE contact_id = $4',
       [email, phone, address, contact_id],
       (error, results) => {
-        if (error) {
-          response.status(400).json({
-            message: "Error, " + error,
-            status: `400`}
-          )
-          throw error
-        }
-        else {
           response.status(200).json({
             message: `Contact information updated for ID: ${contact_id}`,
             status: `200`})
-        }
       }
     )
   }
@@ -118,6 +109,10 @@ const getContacts = (request, response) => {
     const { contact_id }= request.body
     pool.query('DELETE FROM contact WHERE contact_id = $1', [contact_id], (error, results) => {
       if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
         throw error
       }
       else {
@@ -132,6 +127,10 @@ const getContacts = (request, response) => {
     const { contact_id }= request.body
     pool.query('DELETE FROM contact', [contact_id], (error, results) => {
       if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
         throw error
       }
       else {
