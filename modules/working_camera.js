@@ -84,7 +84,7 @@ const deleteWorkingCamera = (request, response) => {
   }
 //Delete working camera (update is_deleted flag to true)
 const deleteAllWorkingCameras = (request, response) => {
-  pool.query('DELETE working_camera', [working_camera_id], (error, results) => {
+  pool.query('DELETE FROM working_camera', [working_camera_id], (error, results) => {
     if (error) {
       response.status(400).json({
         message: "Error, " + error,
