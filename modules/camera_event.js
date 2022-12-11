@@ -98,5 +98,6 @@ module.exports = {
     getEvents,
     getEventByWorkingCameraId,
     createEvent,
-    deleteEvent
+    deleteEvent,
+    deleteAllEvents
 }
