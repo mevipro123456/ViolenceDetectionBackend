@@ -25,6 +25,7 @@ const loginUser = (request, response) => {
         body: results.rows})
     }
   })
+  
 }
 
 //List all users in table, sort by id
