@@ -231,7 +231,23 @@ const deleteUser = (request, response) => {
       } 
     })
   }
-
+//Delete a user (update is_deleted flag to true)
+const deleteAllUsers= (request, response) => {
+  pool.query('DELETE FROM account', (error, results) => {
+    if (error) {
+      response.status(400).json({
+        message: "Error, " + error,
+        status: `400`}
+      )
+      throw error
+    }
+    else {
+      response.status(200).json({
+        message: `All Account deleted`,
+        status: `200`})
+    } 
+  })
+}
   module.exports = {
     loginUser,
     getUsers,
@@ -242,5 +258,6 @@ const deleteUser = (request, response) => {
     createUser,
     updateUser,
     deleteUser,
+    deleteAllUsers
   }
   
