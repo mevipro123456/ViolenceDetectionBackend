@@ -4,6 +4,10 @@ const pool =  require('../config')
 const getWorkingCameras = (request, response) => {
     pool.query('SELECT * FROM working_camera ORDER BY working_camera_id ASC', (error, results) => {
       if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
         throw error
       }
       else {
@@ -20,6 +24,10 @@ const getWorkingCameraById = (request, response) => {
     const { working_camera_id }= request.body
       pool.query('SELECT * FROM working_camera WHERE working_camera_id = $1', [working_camera_id], (error, results) => {
         if (error) {
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
           throw error
         }
         else if (results.rowCount == 0) {
@@ -42,6 +50,10 @@ const createWorkingCamera = (request, response) => {
     const { camera_id, subcription_id } = request.body
     pool.query('INSERT INTO working_camera (camera_id, subcription_id) VALUES ($1, $2) RETURNING *', [camera_id, subcription_id], (error, results) => {
       if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
         throw error
       }
       else {
@@ -55,8 +67,12 @@ const createWorkingCamera = (request, response) => {
 //Delete working camera (update is_deleted flag to true)
 const deleteWorkingCamera = (request, response) => {
     const { working_camera_id }= request.body
-    pool.query('UPDATE working_camera SET is_deleted = TRUE WHERE working_camera_id = $1', [working_camera_id], (error, results) => {
+    pool.query('DELETE working_camera WHERE working_camera_id = $1', [working_camera_id], (error, results) => {
       if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
         throw error
       }
       else {
@@ -66,10 +82,27 @@ const deleteWorkingCamera = (request, response) => {
       } 
     })
   }
-
+//Delete working camera (update is_deleted flag to true)
+const deleteAllWorkingCameras = (request, response) => {
+  pool.query('DELETE working_camera', [working_camera_id], (error, results) => {
+    if (error) {
+      response.status(400).json({
+        message: "Error, " + error,
+        status: `400`}
+      )
+      throw error
+    }
+    else {
+      response.status(200).json({
+        message: `All camera deleted`,
+        status: `200`})
+    } 
+  })
+}
 module.exports = {
     getWorkingCameras,
     getWorkingCameraById,
     createWorkingCamera,
-    deleteWorkingCamera
+    deleteWorkingCamera,
+    deleteAllWorkingCameras
 }

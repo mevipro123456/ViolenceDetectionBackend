@@ -4,6 +4,10 @@ const pool =  require('../config')
 const getSubcriptions = (request, response) => {
     pool.query('SELECT * FROM subcription ORDER BY subcription_id ASC', (error, results) => {
       if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
         throw error
       }
       else {
@@ -20,6 +24,10 @@ const getSubcriptionById = (request, response) => {
   const { account_id }= request.body
     pool.query('SELECT * FROM subcription WHERE account_id = $1', [account_id], (error, results) => {
       if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
         throw error
       }
       else if (results.rowCount == 0) {
@@ -42,6 +50,10 @@ const createSubcription = (request, response) => {
     const { start_date, end_date, price, duration, account_id, service_id } = request.body
     pool.query('INSERT INTO subcription (start_date, end_date, price, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date, end_date, price, duration, account_id, service_id], (error, results) => {
       if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
         throw error
       }
       else {
@@ -60,6 +72,10 @@ const updateSubcription = (request, response) => {
       [start_date, end_date, price, duration, subcription_id],
       (error, results) => {
         if (error) {
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
           throw error
         }
         else {
@@ -80,6 +96,7 @@ const deleteSubcription = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
+        throw error
       }
       else {
         response.status(200).json({
