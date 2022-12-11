@@ -239,7 +239,6 @@ const deleteAllUsers= (request, response) => {
         message: "Error, " + error,
         status: `400`}
       )
-      throw error
     }
     else {
       response.status(200).json({

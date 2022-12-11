@@ -73,7 +73,6 @@ const deleteWorkingCamera = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
       }
       else {
         response.status(200).json({
@@ -90,7 +89,6 @@ const deleteAllWorkingCameras = (request, response) => {
         message: "Error, " + error,
         status: `400`}
       )
-      throw error
     }
     else {
       response.status(200).json({
