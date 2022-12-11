@@ -84,9 +84,9 @@ const updateService = (request, response) => {
   }
   
 //Delete service (update is_deleted flag to true)
-const deleteService = (request, response) => {
+const deleteServiceByServiceID = (request, response) => {
   const { service_id } = request.body
-    pool.query('UPDATE service SET is_deleted = TRUE WHERE service_id = $1', [service_id], (error, results) => {
+    pool.query('DELETE FROM service WHERE service_id = $1', [service_id], (error, results) => {
       if (error) {
         response.status(400).json({
           message: "Error, " + error,
@@ -100,11 +100,27 @@ const deleteService = (request, response) => {
       }
     })
   }
-  
+
+  const deleteAllServices = (request, response) => {
+      pool.query('DELETE FROM service', (error, results) => {
+        if (error) {
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
+        }
+        else {
+          response.status(200).json({
+            message: `All services deleted`,
+            status: `200`})
+        }
+      })
+    }
 module.exports = {
     getServices,
     getServiceByName,
     createService,
     updateService,
-    deleteService,
+    deleteServiceByServiceID,
+    deleteAllServices
 }
