@@ -88,7 +88,7 @@ const deleteEvent = (request, response) => {
       }
       else {
         response.status(200).json({
-          message: `Event ID: ${event_id} removed`,
+          message: `All event removed`,
           status: `200`})
       } 
     })
