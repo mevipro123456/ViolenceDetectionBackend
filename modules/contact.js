@@ -124,8 +124,7 @@ const getContacts = (request, response) => {
   }
   //Delete a contact (update is_deleted flag to true)
   const deleteAllContacts = (request, response) => {
-    const { contact_id }= request.body
-    pool.query('DELETE FROM contact', [contact_id], (error, results) => {
+    pool.query('DELETE FROM contact', (error, results) => {
       if (error) {
         response.status(400).json({
           message: "Error, " + error,
