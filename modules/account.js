@@ -174,7 +174,7 @@ const createUser = async (request, response) => {
       })
     }
     else{
-      pool.query('INSERT INTO account (email, password, role, name, phone, address) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [email, password, role, name, phone, address], (error, results) => {
+      pool.query('INSERT INTO account (email, password, role, name, phone, address) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [email, password, 'user', name, phone, address], (error, results) => {
         if (error) {
           throw error
         }
