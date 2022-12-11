@@ -21,7 +21,7 @@ const getSubcriptions = (request, response) => {
 
 //Find a subcription using id
 const getSubcriptionBySubcriptionId = (request, response) => {
-  const { subcription_id }= request.body
+  const { subcription_id } = request.body
     pool.query('SELECT * FROM subcription WHERE subcription_id = $1', [subcription_id], (error, results) => {
       if (error) {
         response.status(400).json({
