@@ -60,9 +60,9 @@ const createCameraService = (request, response) => {
   }
   
 //Delete camera service (update is_deleted flag to true)
-  const deleteCameraService = (request, response) => {
+  const deleteCameraServiceByIDs = (request, response) => {
     const { camera_id } = request.body 
-    pool.query('UPDATE service_camera SET is_deleted = TRUE WHERE camera_id = $1', [camera_id], (error, results) => {
+    pool.query('DELETE FROM service_camera WHERE camera_id = $1 and camera_id = $2', [camera_id], (error, results) => {
       if (error) {
         response.status(400).json({
           message: "Error, " + error,
@@ -81,5 +81,5 @@ module.exports = {
     getCameraServices,
     getCameraServiceByServiceId,
     createCameraService,
-    deleteCameraService,
+    deleteCameraServiceByIDs,
 }

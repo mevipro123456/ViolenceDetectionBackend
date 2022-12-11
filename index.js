@@ -81,7 +81,7 @@ app.delete('/cameras/delete/', dbCamera.deleteCamera)
 app.get('/service_camera/', dbCameraService.getCameraServices)
 app.get('/service_camera/service/', dbCameraService.getCameraServiceByServiceId)
 app.post('/service_camera/', dbCameraService.createCameraService)
-app.delete('/service_camera/delete/', dbCameraService.deleteCameraService)
+app.delete('/service_camera/delete/', dbCameraService.deleteCameraServiceByIDs)
 
 //For working_camera table
 app.get('/working_camera/', dbWorkingCamera.getWorkingCameras)
