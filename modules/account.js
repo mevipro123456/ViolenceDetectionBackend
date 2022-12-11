@@ -215,14 +215,14 @@ const updateUser = (request, response) => {
 
 //Delete a user (update is_deleted flag to true)
 const deleteUser = (request, response) => {
-    const { account_id }= request.body
-    pool.query('DELETE account WHERE account_id = $1', [account_id], (error, results) => {
+    const { account_id } = request.body
+    pool.query('DELETE FROM account WHERE account_id = $1', [account_id], (error, results) => {
       if (error) {
-
-        response.status(200).json({
+        response.status(400).json({
           message: "Error, " + error,
-          status: `200`})
-          throw error
+          status: `400`}
+        )
+        throw error
       }
       else {
         response.status(200).json({
