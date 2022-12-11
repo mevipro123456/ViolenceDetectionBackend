@@ -36,8 +36,8 @@ app.get('/users/email/', dbAccount.getUserByEmail)
 app.get('/users/phone/', dbAccount.getUserByPhone)
 app.post('/users/register', dbAccount.createUser)
 app.put('/users/', dbAccount.updateUser)
-app.put('/users/delete/', dbAccount.deleteUser)
-app.put('/users/deleteAll/', dbAccount.deleteAllUsers)
+app.delete('/users/delete/', dbAccount.deleteUser)
+app.delete('/users/deleteAll/', dbAccount.deleteAllUsers)
 
 ///For register
 app.post('/register/', dbAccount.createUser)
