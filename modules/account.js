@@ -3,7 +3,7 @@ const pool =  require('../config')
 //Login user
 const loginUser = (request, response) => {
   const { email, password } = request.body
-  pool.query('SELECT * FROM account WHERE email = $1 AND password = $2 AND is_deleted = false', [email, password], (error, results) => {
+  pool.query('SELECT * FROM account WHERE email = $1 AND password = $2', [email, password], (error, results) => {
     if (error) {
       throw error
     }
@@ -104,24 +104,7 @@ const getUserByEmail = (request, response) => {
       } 
     })
   }
-//Find a user using email
-function isEmailExists(email) {
-  exist = false
-  pool.query('SELECT * FROM account WHERE email = $1', [email], (error, results) => {
-    console.log(results.rows)
-      if (error) {
-        throw error
-      }
-      else if (results.rowCount == 0) {
 
-        exist = false
-      }
-      else {
-        exist = true
-      } 
-    })
-    return exist
-}
 //Find a user using phone
 const getUserByPhone = (request, response) => {
   const { phone }= request.body
@@ -143,11 +126,40 @@ const getUserByPhone = (request, response) => {
       }
     })
   }
-
+//Find a user using email
+async function isEmailExists(email) {
+  try{
+    const res = await pool.query('SELECT * FROM account WHERE email = $1', [email]);
+    console.log("res ", res.rowCount)
+    if(res.rowCount == 0){
+      return false
+    }
+    else {
+      return true
+    }
+  }
+  catch(err){
+    return err.stack;
+  }
+}
+async function selectFrom(data, table, condition) {
+  try {
+    const res = await pool.query(
+      `SELECT ${data} FROM ${table} ${condition}`
+    );
+    return res.rows[0][data];
+  } catch (err) {
+    return err.stack;
+  }
+}
+async function whateverFuncName () {
+  var result = await selectFrom('amount','total_nonfarm_monthly_sa', `WHERE month='2019-08-31'`);
+  console.log(result);
+}
 //Add a new user
-const createUser = (request, response) => {
+const createUser = async (request, response) => {
     const { email, password, role, name, phone, address } = request.body
-    if (isEmailExists(email)) {
+    if ( await isEmailExists(email)) {
       response.status(200).json({
         message: `Email: ${email} already in use `,
         status: `400`,
@@ -158,7 +170,7 @@ const createUser = (request, response) => {
         if (error) {
           throw error
         }
-        else if(email == "" || password == "" || name == "" || phone == "" || adress == ""){
+        else if(email == "" || password == "" || name == "" || phone == "" || address == ""){
           response.status(400).json({
             message: `Fields are empty ` + err,
             status: `400`,
