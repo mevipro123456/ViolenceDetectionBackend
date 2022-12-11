@@ -1,3 +1,4 @@
+const { json } = require('express')
 const pool =  require('../config')
 
 //List all order services in table, sort by id
@@ -141,6 +142,7 @@ const deleteServiceByServiceID = (request, response) => {
         }
       })
     }
+      
 module.exports = {
     getServices,
     getServiceByName,
@@ -148,5 +150,6 @@ module.exports = {
     createService,
     updateService,
     deleteServiceByServiceID,
-    deleteAllServices
+    deleteAllServices,
+    func_GetServiceById
 }

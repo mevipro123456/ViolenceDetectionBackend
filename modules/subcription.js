@@ -1,3 +1,4 @@
+const { json } = require('express')
 const pool =  require('../config')
 
 //List all subcriptions in table, sort by id
@@ -18,7 +19,6 @@ const getSubcriptions = (request, response) => {
       }
     })
   }
-
 //Find a subcription using id
 const getSubcriptionBySubcriptionId = (request, response) => {
   const { subcription_id } = request.body
@@ -72,7 +72,11 @@ const getSubcriptionByAccountId = (request, response) => {
 
 //Create new subcription
 const createSubcription = (request, response) => {
-    const { start_date, end_date, price, duration, account_id, service_id } = request.body
+    const {price, duration, account_id, service_id } = request.body
+    let service = func_GetServiceById(service_id)
+    console.log(`In createSubcription service: ${service}`)
+    let start_date = new Date()
+    console.log("Current Datetime ", start_date)
     pool.query('INSERT INTO subcription (start_date, end_date, price, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date, end_date, price, duration, account_id, service_id], (error, results) => {
       if (error) {
         response.status(400).json({
@@ -146,7 +150,16 @@ const deleteSubcription = (request, response) => {
       } 
     })
   }
-
+  const func_GetServiceById = async (service_id) => {
+    const res = await pool.query('SELECT * FROM service WHERE service_id = $1', [service_id]);
+    if(res.rowCount != 0){
+      console.log("result" , res.rows.pop)
+      return res.rows
+    }
+    else{
+      return null
+    }
+  }
   module.exports = {
     getSubcriptions,
     getSubcriptionBySubcriptionId,

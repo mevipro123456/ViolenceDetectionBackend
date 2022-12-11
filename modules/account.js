@@ -97,7 +97,7 @@ const getUserByName = (request, response) => {
 
 //Find a user using email
 const getUserByEmail = (request, response) => {
-  const { email }= request.body
+  const { email } = request.body
     pool.query('SELECT * FROM account WHERE email = $1', [email], (error, results) => {
       if (error) {
         response.status(400).json({
