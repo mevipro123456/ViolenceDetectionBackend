@@ -57,11 +57,13 @@ app.delete('/contacts/deleteAll/', dbContact.deleteAllContacts)
 
 //For service table
 app.get('/services/', dbService.getServices)
+app.post('/services/service_id', dbService.getServiceById)
 app.post('/services/name/', dbService.getServiceByName)
 app.post('/services/', dbService.createService)
 app.put('/services/', dbService.updateService)
 app.delete('/services/delete/', dbService.deleteServiceByServiceID)
 app.delete('/services/deleteAll/', dbService.deleteAllServices)
+
 //For subcription table
 app.get('/subcriptions/', dbSubcription.getSubcriptions)
 app.post('/subcriptions/subcription_id/', dbSubcription.getSubcriptionBySubcriptionId)

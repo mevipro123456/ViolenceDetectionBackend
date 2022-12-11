@@ -43,6 +43,30 @@ const getServiceByName = (request, response) => {
         }
       })
     }
+//Find service regisgtered by name
+const getServiceById = (request, response) => {
+  const { name } = request.body
+      pool.query('SELECT * FROM service WHERE name = $1', [name], (error, results) => {
+        if (error) {
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
+        }
+        else if (results.rowCount == 0) {
+          response.status(400).json({
+            message: `Can't find service with name: ${name}`,
+            status: `400`,
+          })
+        }
+        else {
+          response.status(200).json({
+            message: `Service found with name: ${name}`, 
+            status: `200`, 
+            body: results.rows})
+        }
+      })
+    }
   
 //Add a service
 const createService = (request, response) => {
@@ -120,6 +144,7 @@ const deleteServiceByServiceID = (request, response) => {
 module.exports = {
     getServices,
     getServiceByName,
+    getServiceById,
     createService,
     updateService,
     deleteServiceByServiceID,
