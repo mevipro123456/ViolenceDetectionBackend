@@ -32,13 +32,13 @@ const getSubcriptionBySubcriptionId = (request, response) => {
       }
       else if (results.rowCount == 0) {
         response.status(400).json({
-          message: `Can't find subcription with account ID: ${account_id}`,
+          message: `Can't find subcription with account ID: ${subcription_id}`,
           status: `400`,
         })
       }
       else {
         response.status(200).json({
-          message: `Subcription found with account ID: ${account_id}`, 
+          message: `Subcription found with account ID: ${subcription_id}`, 
           status: `200`, 
           body: results.rows})
       }
