@@ -98,6 +98,10 @@ const getContacts = (request, response) => {
       [email, phone, address, contact_id],
       (error, results) => {
         if (error) {
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
           throw error
         }
         else {
