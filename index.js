@@ -45,7 +45,7 @@ app.post('/register/', dbAccount.createUser)
 app.post('/login/', dbAccount.loginUser)
 
 //For contact table
-app.get('/contacts/account_id', dbContact.getContactsByAccountId)
+app.post('/contacts/account_id', dbContact.getContactsByAccountId)
 app.get('/contacts/', dbContact.getContacts)
 app.get('/contacts/email/', dbContact.getContactByEmail)
 app.get('/contacts/phone/', dbContact.getContactByPhone)
