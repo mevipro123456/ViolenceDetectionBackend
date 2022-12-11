@@ -57,7 +57,7 @@ app.delete('/contacts/deleteAll/', dbContact.deleteAllContacts)
 
 //For service table
 app.get('/services/', dbService.getServices)
-app.get('/services/name/', dbService.getServiceByName)
+app.post('/services/name/', dbService.getServiceByName)
 app.post('/services/', dbService.createService)
 app.put('/services/', dbService.updateService)
 app.delete('/services/delete/', dbService.deleteServiceByServiceID)
