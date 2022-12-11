@@ -82,7 +82,7 @@ app.get('/service_camera/', dbCameraService.getCameraServices)
 app.get('/service_camera/service_id/', dbCameraService.getCameraServiceByServiceId)
 app.post('/service_camera/', dbCameraService.createCameraService)
 app.delete('/service_camera/delete/', dbCameraService.deleteCameraServiceByIDs)
-app.post('/service_camera/cameras', dbCameraService.createCameraService)
+app.get('/service_camera/cameras', dbCameraService.createCameraService)
 
 //For working_camera table
 app.get('/working_camera/', dbWorkingCamera.getWorkingCameras)
