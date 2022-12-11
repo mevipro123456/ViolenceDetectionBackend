@@ -58,7 +58,7 @@ app.get('/services/', dbService.getServices)
 app.get('/services/name/', dbService.getServiceByName)
 app.post('/services/', dbService.createService)
 app.put('/services/', dbService.updateService)
-app.put('/services/delete/', dbService.deleteService)
+app.delete('/services/delete/', dbService.deleteService)
 
 //For subcription table
 app.get('/subcriptions/', dbSubcription.getSubcriptions)
@@ -71,13 +71,13 @@ app.delete('/subcriptions/deleteAll/', dbSubcription.deleteAllSubcriptions)
 app.get('/cameras/', dbCamera.getCamera)
 app.post('/cameras/', dbCamera.createCamera)
 app.put('/cameras/', dbCamera.updateCamera)
-app.put('/cameras/delete/', dbCamera.deleteCamera)
+app.delete('/cameras/delete/', dbCamera.deleteCamera)
 
 //For service_camera table
 app.get('/service_camera/', dbCameraService.getCameraServices)
 app.get('/service_camera/service/', dbCameraService.getCameraServiceByServiceId)
 app.post('/service_camera/', dbCameraService.createCameraService)
-app.put('/service_camera/delete/', dbCameraService.deleteCameraService)
+app.delete('/service_camera/delete/', dbCameraService.deleteCameraService)
 
 //For working_camera table
 app.get('/working_camera/', dbWorkingCamera.getWorkingCameras)
@@ -90,7 +90,7 @@ app.delete('/working_camera/deleteAll/', dbWorkingCamera.deleteAllWorkingCameras
 app.get('/camera_event/', dbCameraEvent.getEvents)
 app.get('/camera_event/id/', dbCameraEvent.getEventByWorkingCameraId)
 app.post('/camera_event/', dbCameraEvent.createEvent)
-app.put('/camera_event/delete/', dbCameraEvent.deleteEvent)
+app.delete('/camera_event/delete/', dbCameraEvent.deleteEvent)
 
 
 app.listen(port, () => {
