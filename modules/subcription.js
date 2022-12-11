@@ -74,13 +74,12 @@ const updateSubcription = (request, response) => {
 //Delete a subcription (update is_deleted flag to true)
 const deleteSubcription = (request, response) => {
     const { subcription_id }= request.body
-    pool.query('DELETE subcription WHERE subcription_id = $1', [subcription_id], (error, results) => {
+    pool.query('DELETE FROM subcription WHERE subcription_id = $1', [subcription_id], (error, results) => {
       if (error) {
         response.status(400).json({
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
       }
       else {
         response.status(200).json({
@@ -90,7 +89,7 @@ const deleteSubcription = (request, response) => {
     })
   }
   const deleteAllSubcriptions = (request, response) => {
-    pool.query('DELETE subcription', (error, results) => {
+    pool.query('DELETE FROM subcription', (error, results) => {
       if (error) {
         response.status(400).json({
           message: "Error, " + error,
