@@ -123,6 +123,5 @@ module.exports = {
     createService,
     updateService,
     deleteServiceByServiceID,
-    deleteAllServices,
-    getAllCamerasOfService
+    deleteAllServices
 }

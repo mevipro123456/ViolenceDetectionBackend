@@ -2,7 +2,7 @@ const pool =  require('../config')
 
 //List all camera services in table, sort by id
 const getCameraServices = (request, response) => {
-    pool.query('SELECT * FROM service_camera ORDER BY camera_id ASC', (error, results) => {
+    pool.query('SELECT * FROM service_camera', (error, results) => {
       if (error) {
         response.status(400).json({
           message: "Error, " + error,
