@@ -45,8 +45,8 @@ const getServiceByName = (request, response) => {
     }
 //Find service regisgtered by name
 const getServiceById = (request, response) => {
-  const { name } = request.body
-      pool.query('SELECT * FROM service WHERE name = $1', [name], (error, results) => {
+  const { service_id } = request.body
+      pool.query('SELECT * FROM service WHERE name = $1', [service_id], (error, results) => {
         if (error) {
           response.status(400).json({
             message: "Error, " + error,
@@ -55,13 +55,13 @@ const getServiceById = (request, response) => {
         }
         else if (results.rowCount == 0) {
           response.status(400).json({
-            message: `Can't find service with name: ${name}`,
+            message: `Can't find service with name: ${service_id}`,
             status: `400`,
           })
         }
         else {
           response.status(200).json({
-            message: `Service found with name: ${name}`, 
+            message: `Service found with name: ${service_id}`, 
             status: `200`, 
             body: results.rows})
         }
