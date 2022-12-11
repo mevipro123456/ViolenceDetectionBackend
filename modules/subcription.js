@@ -20,7 +20,32 @@ const getSubcriptions = (request, response) => {
   }
 
 //Find a subcription using id
-const getSubcriptionById = (request, response) => {
+const getSubcriptionBySubcriptionId = (request, response) => {
+  const { subcription_id }= request.body
+    pool.query('SELECT * FROM subcription WHERE subcription_id = $1', [subcription_id], (error, results) => {
+      if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
+        
+      }
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: `Can't find subcription with account ID: ${account_id}`,
+          status: `400`,
+        })
+      }
+      else {
+        response.status(200).json({
+          message: `Subcription found with account ID: ${account_id}`, 
+          status: `200`, 
+          body: results.rows})
+      }
+    })
+  }
+//Find a subcription using id
+const getSubcriptionByAccountId = (request, response) => {
   const { account_id }= request.body
     pool.query('SELECT * FROM subcription WHERE account_id = $1', [account_id], (error, results) => {
       if (error) {
@@ -124,7 +149,8 @@ const deleteSubcription = (request, response) => {
 
   module.exports = {
     getSubcriptions,
-    getSubcriptionById,
+    getSubcriptionBySubcriptionId,
+    getSubcriptionByAccountId,
     createSubcription,
     updateSubcription,
     deleteSubcription,
