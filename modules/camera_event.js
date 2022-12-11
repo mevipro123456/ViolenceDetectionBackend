@@ -64,7 +64,22 @@ const createEvent = (request, response) => {
 //Delete event (update is_deleted flag to true)
 const deleteEvent = (request, response) => {
     const { event_id }= request.body
-    pool.query('UPDATE camera_event SET is_deleted = TRUE WHERE event_id = $1', [event_id], (error, results) => {
+    pool.query('DELETE FROM camera_event WHERE event_id = $1', [event_id], (error, results) => {
+      if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
+      }
+      else {
+        response.status(200).json({
+          message: `Event ID: ${event_id} removed`,
+          status: `200`})
+      } 
+    })
+  }
+  const deleteAllEvents = (request, response) => {
+    pool.query('DELETE FROM camera_event', (error, results) => {
       if (error) {
         response.status(400).json({
           message: "Error, " + error,
