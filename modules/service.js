@@ -150,6 +150,5 @@ module.exports = {
     createService,
     updateService,
     deleteServiceByServiceID,
-    deleteAllServices,
-    func_GetServiceById
+    deleteAllServices
 }

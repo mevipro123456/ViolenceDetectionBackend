@@ -71,12 +71,17 @@ const getSubcriptionByAccountId = (request, response) => {
   }
 
 //Create new subcription
-const createSubcription = (request, response) => {
-    const {price, duration, account_id, service_id } = request.body
-    let service = func_GetServiceById(service_id)
-    console.log(`In createSubcription service: ${service}`)
-    let start_date = new Date()
-    console.log("Current Datetime ", start_date)
+const createSubcription = async (request, response) => {
+    const {account_id, service_id } = request.body
+    let service = await func_GetServiceById(service_id)
+    console.log(`In createSubcription service: ${service[0]}`)
+    var price = service[0].price
+    var duration = service[0].duration
+    var start_date = new Date()
+    var end_date = new Date()
+    end_date.setMonth(start_date.getMonth() + 12)
+    console.log("Current start_date ", start_date.toISOString())
+    console.log("Current end_date ", end_date.toISOString())
     pool.query('INSERT INTO subcription (start_date, end_date, price, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date, end_date, price, duration, account_id, service_id], (error, results) => {
       if (error) {
         response.status(400).json({
@@ -153,7 +158,7 @@ const deleteSubcription = (request, response) => {
   const func_GetServiceById = async (service_id) => {
     const res = await pool.query('SELECT * FROM service WHERE service_id = $1', [service_id]);
     if(res.rowCount != 0){
-      console.log("result" , res.rows.pop)
+      console.log("in function getServiceByID ", res.rows)
       return res.rows
     }
     else{
