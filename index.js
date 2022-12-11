@@ -38,7 +38,6 @@ app.post('/users/register', dbAccount.createUser)
 app.put('/users/', dbAccount.updateUser)
 app.delete('/users/delete/', dbAccount.deleteUser)
 app.delete('/users/deleteAll/', dbAccount.deleteAllUsers)
-
 ///For register
 app.post('/register/', dbAccount.createUser)
 
@@ -52,8 +51,8 @@ app.get('/contacts/email/', dbContact.getContactByEmail)
 app.get('/contacts/phone/', dbContact.getContactByPhone)
 app.post('/contacts/', dbContact.createContact)
 app.put('/contacts/', dbContact.updateContact)
-app.put('/contacts/delete/', dbContact.deleteContact)
-
+app.delete('/contacts/delete/', dbContact.deleteContact)
+app.delete('/contacts/deleteAll/', dbContact.deleteAllContacts)
 //For service table
 app.get('/services/', dbService.getServices)
 app.get('/services/name/', dbService.getServiceByName)
