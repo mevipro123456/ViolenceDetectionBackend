@@ -4,7 +4,10 @@ const getContactsByAccountId = (request, response) => {
   const { account_id }= request.body
   pool.query('SELECT * FROM contact WHERE account_id = $1', [account_id], (error, results) => {
     if (error) {
-      throw error
+      response.status(400).json({
+        message: "Error, " + error,
+        status: `400`}
+      )
     }
     else {
       response.status(200).json({
@@ -20,7 +23,10 @@ const getContactsByAccountId = (request, response) => {
 const getContacts = (request, response) => {
     pool.query('SELECT * FROM contact ORDER BY contact_id ASC', (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({
@@ -36,7 +42,10 @@ const getContacts = (request, response) => {
     const { email }= request.body
     pool.query('SELECT * FROM contact WHERE email = $1', [email], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else if (results.rowCount == 0) {
         response.status(400).json({
@@ -58,7 +67,10 @@ const getContacts = (request, response) => {
     const { phone } = request.body
     pool.query('SELECT * FROM contact WHERE phone = $1', [phone], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else if (results.rowCount == 0) {
         response.status(400).json({
@@ -80,7 +92,10 @@ const getContacts = (request, response) => {
     const { account_id, email, phone, address } = request.body
     pool.query('INSERT INTO contact (account_id, email, phone, address) VALUES ($1, $2, $3, $4) RETURNING *', [account_id, email, phone, address], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({
@@ -113,7 +128,7 @@ const getContacts = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
+        
       }
       else {
         response.status(200).json({
@@ -131,7 +146,7 @@ const getContacts = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
+        
       }
       else {
         response.status(200).json({

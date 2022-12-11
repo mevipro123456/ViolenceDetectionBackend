@@ -4,7 +4,10 @@ const pool =  require('../config')
 const getEvents = (request, response) => {
     pool.query('SELECT * FROM camera_event ORDER BY event_id ASC', (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({
@@ -20,7 +23,10 @@ const getEventByWorkingCameraId = (request, response) => {
     const { working_camera_id }= request.body
       pool.query('SELECT * FROM camera_event WHERE working_camera_id = $1', [working_camera_id], (error, results) => {
         if (error) {
-          throw error
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
         }
         else if (results.rowCount == 0) {
           response.status(400).json({
@@ -42,7 +48,10 @@ const createEvent = (request, response) => {
     const { name, rate, start, location, working_camera_id } = request.body
     pool.query('INSERT INTO camera_event (name, rate, start, location, working_camera_id) VALUES ($1, $2, $3, $4, $5) RETURNING *', [name, rate, start, location, working_camera_id], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({
@@ -57,7 +66,10 @@ const deleteEvent = (request, response) => {
     const { event_id }= request.body
     pool.query('UPDATE camera_event SET is_deleted = TRUE WHERE event_id = $1', [event_id], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({

@@ -4,7 +4,7 @@ const pool =  require('../config')
 const getCamera = (request, response) => {
     pool.query('SELECT * FROM camera ORDER BY camera_id ASC', (error, results) => {
       if (error) {
-        throw error
+        
       }
       else {
         response.status(200).json({
@@ -20,7 +20,7 @@ const createCamera = (request, response) => {
     const { info } = request.body
     pool.query('INSERT INTO camera (info) VALUES ($1) RETURNING *', [info], (error, results) => {
       if (error) {
-        throw error
+        
       }
       else {
         response.status(200).json({
@@ -38,7 +38,7 @@ const updateCamera = (request, response) => {
       [info, camera_id],
       (error, results) => {
         if (error) {
-          throw error
+          
         }
         response.status(200).json({
           message: `Camera information updated for ID: ${camera_id}`,
@@ -52,7 +52,7 @@ const deleteCamera = (request, response) => {
     const { camera_id }= request.body
     pool.query('UPDATE camera SET is_deleted = TRUE WHERE camera_id = $1', [camera_id], (error, results) => {
       if (error) {
-        throw error
+        
       }
       else {
         response.status(200).json({

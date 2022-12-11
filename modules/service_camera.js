@@ -4,7 +4,10 @@ const pool =  require('../config')
 const getCameraServices = (request, response) => {
     pool.query('SELECT * FROM service_camera ORDER BY camera_id ASC', (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       response.status(200).json({
         message: `OK`, 
@@ -18,7 +21,10 @@ const getCameraServiceByServiceId = (request, response) => {
   const { service_id }= request.body
     pool.query('SELECT * FROM service_camera WHERE service_id = $1', [service_id], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else if (results.rowCount == 0) {
         response.status(400).json({
@@ -40,7 +46,10 @@ const createCameraService = (request, response) => {
   const { service_id, camera_id } = request.body
     pool.query('INSERT INTO service_camera (service_id, camera_id) VALUES ($1, $2) RETURNING *', [service_id, camera_id], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({
@@ -55,7 +64,10 @@ const createCameraService = (request, response) => {
     const { camera_id } = request.body 
     pool.query('UPDATE service_camera SET is_deleted = TRUE WHERE camera_id = $1', [camera_id], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({

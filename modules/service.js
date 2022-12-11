@@ -4,7 +4,10 @@ const pool =  require('../config')
 const getServices = (request, response) => {
     pool.query('SELECT * FROM service ORDER BY service_id ASC', (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({
@@ -20,7 +23,10 @@ const getServiceByName = (request, response) => {
   const { name } = request.body
       pool.query('SELECT * FROM service WHERE name = $1', [name], (error, results) => {
         if (error) {
-          throw error
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
         }
         else if (results.rowCount == 0) {
           response.status(400).json({
@@ -42,7 +48,10 @@ const createService = (request, response) => {
   const { name, membership, price, duration } = request.body
     pool.query('INSERT INTO service (name, membership, price, duration) VALUES ($1, $2, $3, $4) RETURNING *', [name, membership, price, duration], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else{
         response.status(200).json({
@@ -60,7 +69,10 @@ const updateService = (request, response) => {
       [name, membership, price, duration, service_id],
       (error, results) => {
         if (error) {
-          throw error
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
         }
         else {
           response.status(200).json({
@@ -76,7 +88,10 @@ const deleteService = (request, response) => {
   const { service_id } = request.body
     pool.query('UPDATE service SET is_deleted = TRUE WHERE service_id = $1', [service_id], (error, results) => {
       if (error) {
-        throw error
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({

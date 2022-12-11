@@ -8,7 +8,7 @@ const getWorkingCameras = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
+        
       }
       else {
         response.status(200).json({
@@ -28,7 +28,7 @@ const getWorkingCameraById = (request, response) => {
             message: "Error, " + error,
             status: `400`}
           )
-          throw error
+          
         }
         else if (results.rowCount == 0) {
           response.status(400).json({
@@ -54,7 +54,7 @@ const createWorkingCamera = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
+        
       }
       else {
         response.status(200).json({

@@ -8,7 +8,7 @@ const getSubcriptions = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
+        
       }
       else {
         response.status(200).json({
@@ -28,7 +28,7 @@ const getSubcriptionById = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
+        
       }
       else if (results.rowCount == 0) {
         response.status(400).json({
@@ -54,7 +54,7 @@ const createSubcription = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
+        
       }
       else {
         response.status(200).json({
@@ -76,7 +76,7 @@ const updateSubcription = (request, response) => {
             message: "Error, " + error,
             status: `400`}
           )
-          throw error
+          
         }
         else {
           response.status(200).json({
@@ -96,7 +96,7 @@ const deleteSubcription = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
+        
       }
       else {
         response.status(200).json({
@@ -112,7 +112,7 @@ const deleteSubcription = (request, response) => {
           message: "Error, " + error,
           status: `400`}
         )
-        throw error
+        
       }
       else {
         response.status(200).json({
