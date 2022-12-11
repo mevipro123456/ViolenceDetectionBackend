@@ -51,8 +51,10 @@ app.get('/contacts/email/', dbContact.getContactByEmail)
 app.get('/contacts/phone/', dbContact.getContactByPhone)
 app.post('/contacts/', dbContact.createContact)
 app.put('/contacts/', dbContact.updateContact)
-app.delete('/contacts/delete/', dbContact.deleteContact)
+app.delete('/contacts/delete/contact_id', dbContact.deleteContactByContactID)
+app.delete('/contacts/delete/account_id', dbContact.deleteContactByAccountID)
 app.delete('/contacts/deleteAll/', dbContact.deleteAllContacts)
+
 //For service table
 app.get('/services/', dbService.getServices)
 app.get('/services/name/', dbService.getServiceByName)

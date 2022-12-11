@@ -120,7 +120,25 @@ const getContacts = (request, response) => {
   }
   
   //Delete a contact (update is_deleted flag to true)
-  const deleteContact = (request, response) => {
+  const deleteContactByAccountID = (request, response) => {
+    const { account_id }= request.body
+    pool.query('DELETE FROM contact WHERE account_id = $1', [account_id], (error, results) => {
+      if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
+        
+      }
+      else {
+        response.status(200).json({
+          message: `Contact ID: ${contact_id} removed`,
+          status: `200`})
+      }
+    })
+  }
+  //Delete a contact (update is_deleted flag to true)
+  const deleteContactByContactID = (request, response) => {
     const { contact_id }= request.body
     pool.query('DELETE FROM contact WHERE contact_id = $1', [contact_id], (error, results) => {
       if (error) {
@@ -163,6 +181,7 @@ module.exports = {
     getContactByPhone,
     createContact,
     updateContact,
-    deleteContact,
+    deleteContactByAccountID,
+    deleteContactByContactID,
     deleteAllContacts
 }
