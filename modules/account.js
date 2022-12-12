@@ -220,7 +220,7 @@ const createUser = async (request, response) => {
 const updateUser = (request, response) => {
     const { account_id, email, name, phone, address }= request.body
     pool.query(
-      'UPDATE account SET email = $1, name = $4, phone = $5, address = $6 WHERE account_id = $7',
+      'UPDATE account SET email = $1, name = $2, phone = $3, address = $4 WHERE account_id = $5',
       [email, name, phone, address, account_id],
       (error, results) => {
         if (error) {
