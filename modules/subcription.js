@@ -81,7 +81,7 @@ const createSubcription = async (request, response) => {
     var start_date = new Date()
 
     var end_date = new Date()
-    let start_date_month = start_date.getMonth() + 1 + parseInt(duration, 10)
+    let start_date_month = start_date.getMonth() + parseInt(duration, 10)
     console.log("duration", duration)
     console.log("start_date_month", start_date_month)
     end_date.setMonth(start_date_month)
