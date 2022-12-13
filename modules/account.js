@@ -272,6 +272,26 @@ const deleteAllUsers= (request, response) => {
     } 
   })
 }
+const getCamerasByAccountId = async(request, response) =>{
+  const { account_id }= request.body
+  pool.query('SELECT c.camera_id, c.color, c.model_number, c.name, c.brand, c.image FROM account as a INNER JOIN subcription as sub ON a.account_id = sub.account_id INNER JOIN service as s ON sub.service_id = s.service_id INNER JOIN service_camera as sc ON s.service_id = sc.service_id INNER JOIN camera as c ON sc.camera_id = c.camera_id WHERE a.account_id = $1', 
+  [account_id],
+  (error, results) => {
+    if (error) {
+      response.status(400).json({
+        message: "Error, " + error,
+        status: `400`}
+      )
+      
+    }
+    else {
+      response.status(200).json({
+        message: `All Camera found with subcription ID: ${account_id}`, 
+        status: `200`, 
+        body: results.rows})
+    } 
+  })
+}
   module.exports = {
     loginUser,
     getUsers,
@@ -282,6 +302,7 @@ const deleteAllUsers= (request, response) => {
     createUser,
     updateUser,
     deleteUser,
-    deleteAllUsers
+    deleteAllUsers,
+    getCamerasByAccountId
   }
   

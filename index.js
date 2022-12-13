@@ -30,6 +30,7 @@ app.get('/', (request, response) => {
 
 //For account table
 app.get('/users/', dbAccount.getUsers)
+app.post('/users/cameras', dbAccount.getCamerasByAccountId)
 app.post('/users/id/', dbAccount.getUserById)
 app.get('/users/name/', dbAccount.getUserByName)
 app.get('/users/email/', dbAccount.getUserByEmail)

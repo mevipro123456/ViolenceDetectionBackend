@@ -218,6 +218,7 @@ const deleteSubcription = (request, response) => {
       } 
     })
   }
+
   module.exports = {
     getSubcriptions,
     getSubcriptionBySubcriptionId,
