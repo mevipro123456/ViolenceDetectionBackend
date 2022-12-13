@@ -90,7 +90,7 @@ const createSubcription = async (request, response) => {
 
 
     // camera_serivce
-    let camera_service = await func_getCameraServiceByServiceId(service_id)
+    let camera_service = await func_getCameraServiceByServiceId(service_id.no_camera)
     console.log("In createSubcription service", camera_service)
     pool.query('INSERT INTO subcription (start_date, end_date, price, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date.toISOString(), end_date.toISOString(), price, duration, account_id, service_id], (error, results) => {
       if (error) {
@@ -101,7 +101,10 @@ const createSubcription = async (request, response) => {
         
       }
       else {
-        insertWorkingCamera(camera_service, results.rows[0].subcription_id)
+        for (let i = 0; i < service_id.no_camera; i++) {
+          insertWorkingCamera(camera_service, results.rows[0].subcription_id)
+        }
+        
         
         response.status(200).json({
           message: `Subcription added with ID: ${results.rows[0].subcription_id}`,
