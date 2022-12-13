@@ -43,8 +43,8 @@ const getCameraServiceByServiceId = (request, response) => {
 
 //Add camera service
 const createCameraService = (request, response) => {
-  const { service_id, camera_id } = request.body
-    pool.query('INSERT INTO service_camera (service_id, camera_id) VALUES ($1, $2) RETURNING *', [service_id, camera_id], (error, results) => {
+  const { service_id, camera_id, no_camera} = request.body
+    pool.query('INSERT INTO service_camera (service_id, camera_id, no_camera) VALUES ($1, $2, $3) RETURNING *', [service_id, camera_id, no_camera], (error, results) => {
       if (error) {
         response.status(400).json({
           message: "Error, " + error,

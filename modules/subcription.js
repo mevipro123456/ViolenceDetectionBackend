@@ -178,6 +178,7 @@ const deleteSubcription = (request, response) => {
       return null
     }
   }
+  
   module.exports = {
     getSubcriptions,
     getSubcriptionBySubcriptionId,
