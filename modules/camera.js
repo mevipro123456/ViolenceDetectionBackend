@@ -91,7 +91,7 @@ const deleteCamera = (request, response) => {
       }
     })
   }
-  
+
 module.exports = {
     getCamera,
     getCameraById,
