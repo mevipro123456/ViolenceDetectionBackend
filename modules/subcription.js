@@ -74,6 +74,8 @@ const getSubcriptionByAccountId = (request, response) => {
 const createSubcription = async (request, response) => {
     const {account_id, service_id } = request.body
     let service = await func_GetServiceById(service_id)
+    // camera_serivce
+    let camera_service = await func_getCameraServiceByServiceId(service_id)
     console.log(`In createSubcription service: ${service[0]}`)
     var price = service[0].price
     var duration = service[0].duration
@@ -88,10 +90,7 @@ const createSubcription = async (request, response) => {
     console.log("Current start_date ", start_date.toISOString())
     console.log("Current end_date ", end_date.toISOString())
 
-
-    // camera_serivce
-    let camera_service = await func_getCameraServiceByServiceId(service_id.no_camera)
-    console.log("In createSubcription service", camera_service)
+    console.log("In createSubcription service", camera_service[0].no_camera)
     pool.query('INSERT INTO subcription (start_date, end_date, price, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date.toISOString(), end_date.toISOString(), price, duration, account_id, service_id], (error, results) => {
       if (error) {
         response.status(400).json({
@@ -101,7 +100,7 @@ const createSubcription = async (request, response) => {
         
       }
       else {
-        for (let i = 0; i < service_id.no_camera; i++) {
+        for (let i = 0; i < camera_service[0].no_camera; i++) {
           insertWorkingCamera(camera_service, results.rows[0].subcription_id)
         }
         
