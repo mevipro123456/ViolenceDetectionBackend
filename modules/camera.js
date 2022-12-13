@@ -4,7 +4,10 @@ const pool =  require('../config')
 const getCamera = (request, response) => {
     pool.query('SELECT * FROM camera ORDER BY camera_id ASC', (error, results) => {
       if (error) {
-        
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({
@@ -14,7 +17,25 @@ const getCamera = (request, response) => {
       }
     })
   }
- 
+ //List all camera  in table, sort by id
+const getCameraById = (request, response) => {
+  const { camera_id } = request.body
+  pool.query('SELECT * FROM camera WHERE camera_id = $1', [camera_id], (error, results) => {
+    if (error) {
+      response.status(400).json({
+        message: "Error, " + error,
+        status: `400`}
+      )
+    }
+    else {
+      response.status(200).json({
+        message: `OK`, 
+        status: `200`, 
+        body: results.rows})
+    }
+  })
+}
+
 //Add new camera
 const createCamera = (request, response) => {
     const { color, model_number, name, brand, image } = request.body
@@ -73,6 +94,7 @@ const deleteCamera = (request, response) => {
   
 module.exports = {
     getCamera,
+    getCameraById,
     createCamera,
     updateCamera,
     deleteCamera,

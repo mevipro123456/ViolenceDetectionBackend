@@ -89,7 +89,7 @@ const createSubcription = async (request, response) => {
     end_date.setMonth(start_date_month)
     console.log("Current start_date ", start_date.toISOString())
     console.log("Current end_date ", end_date.toISOString())
-
+    
     console.log("In createSubcription service", camera_service[0].no_camera)
     pool.query('INSERT INTO subcription (start_date, end_date, price, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date.toISOString(), end_date.toISOString(), price, duration, account_id, service_id], (error, results) => {
       if (error) {
