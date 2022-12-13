@@ -114,7 +114,7 @@ const insertWorkingCamera = async (camera_service, subcription_id) => {
   for (const item in camera_service) {
     console.log(`${item}: ${camera_service[item].camera_id}`);
 
-    pool.query("INSERT INTO working_camera (subcription_id, camera_id) VALUES ($1, $2)", [camera_service[item].camera_id, subcription_id])
+    pool.query("INSERT INTO working_camera (subcription_id, camera_id) VALUES ($1, $2)", [ subcription_id, camera_service[item].camera_id])
   }
 }
 
