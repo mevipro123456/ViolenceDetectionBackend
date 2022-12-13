@@ -101,7 +101,7 @@ const createSubcription = async (request, response) => {
         
       }
       else {
-        insertWorkingCamera(camera_service, subcription_id)
+        insertWorkingCamera(camera_service, results.rows[0].subcription_id)
         
         response.status(200).json({
           message: `Subcription added with ID: ${results.rows[0].subcription_id}`,
