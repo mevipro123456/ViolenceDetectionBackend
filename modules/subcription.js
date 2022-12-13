@@ -212,7 +212,7 @@ const deleteSubcription = (request, response) => {
       }
       else {
         response.status(200).json({
-          message: `Subcription found with account ID: ${account_id}`, 
+          message: `All Camera found with account ID: ${account_id}`, 
           status: `200`, 
           body: results.rows})
       } 
