@@ -77,9 +77,14 @@ const createSubcription = async (request, response) => {
     console.log(`In createSubcription service: ${service[0]}`)
     var price = service[0].price
     var duration = service[0].duration
+    parseInt(duration, duration)
     var start_date = new Date()
+
     var end_date = new Date()
-    end_date.setMonth(start_date.getMonth() + duration)
+    let start_date_month = start_date.getMonth() + 1 + parseInt(duration, 10)
+    console.log("duration", duration)
+    console.log("start_date_month", start_date_month)
+    end_date.setMonth(start_date_month)
     console.log("Current start_date ", start_date.toISOString())
     console.log("Current end_date ", end_date.toISOString())
     pool.query('INSERT INTO subcription (start_date, end_date, price, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date.toISOString(), end_date.toISOString(), price, duration, account_id, service_id], (error, results) => {
