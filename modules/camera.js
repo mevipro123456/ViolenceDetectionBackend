@@ -17,10 +17,13 @@ const getCamera = (request, response) => {
  
 //Add new camera
 const createCamera = (request, response) => {
-    const { info } = request.body
-    pool.query('INSERT INTO camera (info) VALUES ($1) RETURNING *', [info], (error, results) => {
+    const { color, model_number, name, brand, image } = request.body
+    pool.query('INSERT INTO camera (color, model_number, name, brand, image) VALUES ($1, $2, $3, $4, $5) RETURNING *', [ color, model_number, name, brand, image ], (error, results) => {
       if (error) {
-        
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({
@@ -32,13 +35,16 @@ const createCamera = (request, response) => {
   
 //Update camera service
 const updateCamera = (request, response) => {
-    const { camera_id, info }= request.body
+    const { camera_id, color, model_number, name, brand, image } = request.body
     pool.query(
-      'UPDATE camera SET info = $1 WHERE camera_id = $2',
-      [info, camera_id],
+      'UPDATE camera SET color = $1, model_number = $2, name = $3, brand = $4, image = $5, WHERE camera_id = $6',
+      [color, model_number, name, brand, image, camera_id],
       (error, results) => {
         if (error) {
-          
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
         }
         response.status(200).json({
           message: `Camera information updated for ID: ${camera_id}`,
@@ -52,7 +58,10 @@ const deleteCamera = (request, response) => {
     const { camera_id }= request.body
     pool.query('UPDATE camera SET is_deleted = TRUE WHERE camera_id = $1', [camera_id], (error, results) => {
       if (error) {
-        
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
       }
       else {
         response.status(200).json({
