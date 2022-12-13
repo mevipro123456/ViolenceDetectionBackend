@@ -212,8 +212,9 @@ const deleteSubcription = (request, response) => {
       }
       else {
         response.status(200).json({
-          message: `All subcription deleted`,
-          status: `200`})
+          message: `Subcription found with account ID: ${account_id}`, 
+          status: `200`, 
+          body: results.rows})
       } 
     })
   }
