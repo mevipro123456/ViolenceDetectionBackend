@@ -152,7 +152,7 @@ const deleteServiceByServiceID = (request, response) => {
         }
       })
     }
-      
+
 module.exports = {
     getServices,
     getServiceByName,

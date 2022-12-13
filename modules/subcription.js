@@ -77,7 +77,6 @@ const createSubcription = async (request, response) => {
     console.log(`In createSubcription service: ${service[0]}`)
     var price = service[0].price
     var duration = service[0].duration
-    var no_camera = service[0].no_camera
     parseInt(duration, duration)
     var start_date = new Date()
 
@@ -88,6 +87,11 @@ const createSubcription = async (request, response) => {
     end_date.setMonth(start_date_month)
     console.log("Current start_date ", start_date.toISOString())
     console.log("Current end_date ", end_date.toISOString())
+
+
+    // camera_serivce
+    let camera_service = await func_getCameraServiceByServiceId(service_id)
+    console.log("In createSubcription service", camera_service)
     pool.query('INSERT INTO subcription (start_date, end_date, price, duration, account_id, service_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [start_date.toISOString(), end_date.toISOString(), price, duration, account_id, service_id], (error, results) => {
       if (error) {
         response.status(400).json({
@@ -97,8 +101,7 @@ const createSubcription = async (request, response) => {
         
       }
       else {
-        // const 
-        // insertWorkingCamera(no_camera)
+        insertWorkingCamera(camera_service)
         
         response.status(200).json({
           message: `Subcription added with ID: ${results.rows[0].subcription_id}`,
@@ -107,9 +110,11 @@ const createSubcription = async (request, response) => {
     })
   }
 
-// const insertWorkingCamera = (no_camera) => {
-//   for(int  i)
-// }
+const insertWorkingCamera = (camera_service) => {
+  for (const item in camera_service) {
+    console.log(`${item}: ${camera_service[item]}`);
+  }
+}
 
 //Update subcription
 const updateSubcription = (request, response) => {
@@ -178,7 +183,18 @@ const deleteSubcription = (request, response) => {
       return null
     }
   }
-  
+
+  const func_getCameraServiceByServiceId = async (service_id) => {
+    const res = await pool.query('SELECT * FROM service_camera WHERE service_id = $1', [service_id])
+    if(res.rowCount != 0){
+      console.log("in function func_getCameraServiceByServiceId ", res.rows)
+      return res.rows
+    }
+    else{
+      return null
+    }
+  }  
+
   module.exports = {
     getSubcriptions,
     getSubcriptionBySubcriptionId,
