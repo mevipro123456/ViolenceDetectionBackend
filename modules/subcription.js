@@ -107,9 +107,9 @@ const createSubcription = async (request, response) => {
     })
   }
 
-const insertWorkingCamera = (no_camera) => {
-  for(int  i)
-}
+// const insertWorkingCamera = (no_camera) => {
+//   for(int  i)
+// }
 
 //Update subcription
 const updateSubcription = (request, response) => {
