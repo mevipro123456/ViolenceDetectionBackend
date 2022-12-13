@@ -72,7 +72,17 @@ const getServiceById = (request, response) => {
 //Add a service
 const createService = (request, response) => {
   const { name, membership, price, duration } = request.body
-    pool.query('INSERT INTO service (name, membership, price, duration) VALUES ($1, $2, $3, $4) RETURNING *', [name, membership, price, duration], (error, results) => {
+  var no_contact = 3
+  if(membership == "basic"){
+    no_contact = 3
+  }
+  else if(membership == "premium"){
+    no_contact = 5
+  }
+  else if(membership == "enterprise"){
+    no_contact = 10
+  }
+    pool.query('INSERT INTO service (name, membership, price, duration, no_contact) VALUES ($1, $2, $3, $4, $5) RETURNING *', [name, membership, price, duration, no_contact], (error, results) => {
       if (error) {
         response.status(400).json({
           message: "Error, " + error,

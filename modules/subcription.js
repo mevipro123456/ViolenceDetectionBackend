@@ -77,6 +77,7 @@ const createSubcription = async (request, response) => {
     console.log(`In createSubcription service: ${service[0]}`)
     var price = service[0].price
     var duration = service[0].duration
+    var no_camera = service[0].no_camera
     parseInt(duration, duration)
     var start_date = new Date()
 
@@ -96,12 +97,19 @@ const createSubcription = async (request, response) => {
         
       }
       else {
+        const 
+        insertWorkingCamera(no_camera)
+        
         response.status(200).json({
           message: `Subcription added with ID: ${results.rows[0].subcription_id}`,
           status: `200`})
       } 
     })
   }
+
+const insertWorkingCamera = (no_camera) => {
+  for(int  i)
+}
 
 //Update subcription
 const updateSubcription = (request, response) => {
