@@ -22,8 +22,8 @@ const getWorkingCameras = (request, response) => {
 
 //Find working camera using id
 const getWorkingCameraBySubcriptionId = (request, response) => {
-    const { working_camera_id, connection_string}= request.body
-      pool.query('UPDATE working_camera SET connection_string = $1 WHERE working_camera_id = $2', [connection_string, working_camera_id], (error, results) => {
+    const { subcription_id }= request.body
+      pool.query('SELECT * FROM working_camera WHERE subcription_id = $1', [subcription_id], (error, results) => {
         if (error) {
           response.status(400).json({
             message: "Error, " + error,
@@ -100,22 +100,22 @@ const deleteAllWorkingCameras = (request, response) => {
 }
 //List all working cameras in table, sort by id
 const updateWorkingCameras = (request, response) => {
-  const {working_camera_id, connection_string} = request.body
-  pool.query('UPDATE * FROM working_camera', (error, results) => {
-    if (error) {
-        response.status(400).json({
-          message: "Error, " + error,
-          status: `400`
+  const { working_camera_id, connection_string}= request.body
+      pool.query('UPDATE working_camera SET connection_string = $1 WHERE working_camera_id = $2', [connection_string, working_camera_id], (error, results) => {
+        if (error) {
+          response.status(400).json({
+            message: "Error, " + error,
+            status: `400`}
+          )
+          
+        }
+        else {
+          response.status(200).json({
+            message: `UPDATED SUCCESS: ${working_camera_id}`, 
+            status: `200`, 
+            body: results.rows})
+        }
       })
-      
-    }
-    else {
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
-    }
-  })
 }
 module.exports = {
     getWorkingCameras,
