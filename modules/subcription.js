@@ -101,7 +101,7 @@ const createSubcription = async (request, response) => {
         
       }
       else {
-        insertWorkingCamera(camera_service)
+        insertWorkingCamera(camera_service, subcription_id)
         
         response.status(200).json({
           message: `Subcription added with ID: ${results.rows[0].subcription_id}`,
@@ -110,9 +110,11 @@ const createSubcription = async (request, response) => {
     })
   }
 
-const insertWorkingCamera = (camera_service) => {
+const insertWorkingCamera = async (camera_service, subcription_id) => {
   for (const item in camera_service) {
-    console.log(`${item}: ${camera_service[item]}`);
+    console.log(`${item}: ${camera_service[item].camera_id}`);
+
+    pool.query("INSERT INTO working_camera (subcription_id, camera_id) VALUES ($1, $2)", [camera_service[item].camera_id, subcription_id])
   }
 }
 
