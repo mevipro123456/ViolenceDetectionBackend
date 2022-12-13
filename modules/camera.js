@@ -37,7 +37,7 @@ const createCamera = (request, response) => {
 const updateCamera = (request, response) => {
     const { camera_id, color, model_number, name, brand, image } = request.body
     pool.query(
-      'UPDATE camera SET color = $1, model_number = $2, name = $3, brand = $4, image = $5, WHERE camera_id = $6',
+      'UPDATE camera SET color = $1, model_number = $2, name = $3, brand = $4, image = $5 WHERE camera_id = $6',
       [color, model_number, name, brand, image, camera_id],
       (error, results) => {
         if (error) {
