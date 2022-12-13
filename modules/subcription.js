@@ -200,7 +200,7 @@ const deleteSubcription = (request, response) => {
   }  
   const getCamerasBySubcriptionId = async(request, response) =>{
     const { subcription_id }= request.body
-    pool.query('SELECT c.camera_id, c.color, c.model_number, c.name, c.brand, c.image FROM subcription as sub INNER JOIN service ON sub.service_id = s.service_id INNER JOIN service_camera as sc ON s.service_id = sc.service_id INNER JOIN camera as c ON sc.camera_id = c.camera_id WHERE sub.subcription_id = $1', 
+    pool.query('SELECT c.camera_id, c.color, c.model_number, c.name, c.brand, c.image FROM subcription as sub INNER JOIN service as s ON sub.service_id = s.service_id INNER JOIN service_camera as sc ON s.service_id = sc.service_id INNER JOIN camera as c ON sc.camera_id = c.camera_id WHERE sub.subcription_id = $1', 
     [subcription_id],
     (error, results) => {
       if (error) {
