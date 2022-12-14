@@ -99,7 +99,7 @@ app.delete('/working_camera/deleteAll/', dbWorkingCamera.deleteAllWorkingCameras
 
 //for camera_event table
 app.get('/camera_event/', dbCameraEvent.getEvents)
-app.get('/camera_event/id/', dbCameraEvent.getEventByWorkingCameraId)
+app.post('/camera_event/id/', dbCameraEvent.getEventByWorkingCameraId)
 app.post('/camera_event/', dbCameraEvent.createEvent)
 app.delete('/camera_event/delete/', dbCameraEvent.deleteEvent)
 app.delete('/camera_event/deleteAll/', dbCameraEvent.deleteAllEvents)
