@@ -2,7 +2,7 @@ const pool =  require('../config')
 const nodemailer = require("nodemailer")
 
 const getContactsByAccountId = (request, response) => {
-  const { account_id }= request.body
+  const { account_id } = request.body
   pool.query('SELECT * FROM contact WHERE account_id = $1', [account_id], (error, results) => {
     if (error) {
       response.status(400).json({
@@ -186,34 +186,34 @@ const getContacts = (request, response) => {
             )
           }
           else {
-            for (const item in results.rows) {
-              console.log(`${item}: ${results.rows[item].email}`);
-            }
-            let transporter = nodemailer.createTransport({
-              service: "gmail",
-              auth: {
-                user: "nhanbuiduc.work@gmail.com",
-                pass: "TtTb2392001"
-              },
-              tls: {
-                rejectUnauthorized: false,
-              }
-            })
+            // for (const item in results.rows) {
+            //   console.log(`${item}: ${results.rows[item].email}`);
+            // }
+            // let transporter = nodemailer.createTransport({
+            //   service: "gmail",
+            //   auth: {
+            //     user: "nhanbuiduc.work@gmail.com",
+            //     pass: "TtTb2392001"
+            //   },
+            //   tls: {
+            //     rejectUnauthorized: false,
+            //   }
+            // })
             
-            let mailOption = {
-              from: "nhanbuiduc.work@gmail.com",
-              to: 'tantythienbinh@gmail.com',
-              subject: "Anomoly Event Detected",
-              text: "Hello 1 2 3"
-            }
+            // let mailOption = {
+            //   from: "nhanbuiduc.work@gmail.com",
+            //   to: 'tantythienbinh@gmail.com',
+            //   subject: "Anomoly Event Detected",
+            //   text: "Hello 1 2 3"
+            // }
             
-            transporter.sendMail(mailOption, function(err, success) {
-              if (err) {
-                console.log(err)
-              } else {
-                console.log("Email sent successfully!")
-              }
-            });
+            // transporter.sendMail(mailOption, function(err, success) {
+            //   if (err) {
+            //     console.log(err)
+            //   } else {
+            //     console.log("Email sent successfully!")
+            //   }
+            // });
             response.status(200).json({
               message: `Contact found with ID: ${connection_string}`, 
               status: `200`, 
@@ -221,6 +221,7 @@ const getContacts = (request, response) => {
           }
         });
   }
+  
 module.exports = {
     getContactsByAccountId,
     getContacts,
