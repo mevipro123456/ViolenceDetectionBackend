@@ -186,6 +186,37 @@ const getContacts = (request, response) => {
             )
           }
           else {
+
+
+              const nodemailer = require("nodemailer")
+            for (const item in results.rows) {
+              console.log(`${item}: ${results.rows[item].email}`);
+            }
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "tantythienbinh@yahoo.com",
+                pass: "TtTb2392001"
+              },
+              tls: {
+                rejectUnauthorized: false,
+              }
+            })
+            
+            let mailOption = {
+              from: "tantythienbinh@yahoo.com",
+              to: 'nhanbuiduc.work@gmail.com',
+              subject: "Anomoly Event Detected",
+              text: "Hello 1 2 3"
+            }
+            
+            transporter.sendMail(mailOption, function(err, success) {
+              if (err) {
+                console.log(err)
+              } else {
+                console.log("Email sent successfully!")
+              }
+            });
             response.status(200).json({
               message: `Contact found with ID: ${connection_string}`, 
               status: `200`, 
