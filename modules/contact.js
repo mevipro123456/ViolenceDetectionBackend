@@ -1,4 +1,5 @@
 const pool =  require('../config')
+const nodemailer = require("nodemailer")
 
 const getContactsByAccountId = (request, response) => {
   const { account_id }= request.body
@@ -175,7 +176,7 @@ const getContacts = (request, response) => {
   }
   const findContactsByConnectionString = (request, response) => {
     const { connection_string }= request.body
-        pool.query('SELECT acc.phone, acc.mail, acc.name, acc.address FROM working_camera as wc INNER JOIN subcription as sub ON wc.subcription_id = sub.subcription_id INNER JOIN account as acc ON sub.account_id = acc.account_id INNER JOIN contact as c ON c.account_id = acc.account_id WHERE wc.connection_string = $1',
+        pool.query('SELECT acc.phone, acc.email, acc.name, acc.address FROM working_camera as wc INNER JOIN subcription as sub ON wc.subcription_id = sub.subcription_id INNER JOIN account as acc ON sub.account_id = acc.account_id INNER JOIN contact as c ON c.account_id = acc.account_id WHERE wc.connection_string = $1',
         [connection_string],
         (error, results) => {
           if (error) {
@@ -186,7 +187,7 @@ const getContacts = (request, response) => {
           }
           else {
             for (const item in results.rows) {
-              console.log(`${item}: ${camera_service[item].camera_id}`);
+              console.log(`${item}: ${results.rows[item].email}`);
             }
             let transporter = nodemailer.createTransport({
               service: "gmail",
