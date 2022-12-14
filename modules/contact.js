@@ -175,7 +175,7 @@ const getContacts = (request, response) => {
   }
   const findContactsByConnectionString = (request, response) => {
     const { connection_string }= request.body
-        pool.query('SELECT acc.phone, acc.gmail, acc.name, acc.address FROM camera_event as ce INNER JOIN working_camera ON ce.working_id = working_camera as wc INNER JOIN subcription as sub ON wc.subcription_id = sub.subcription_id INNER JOIN account as acc ON sub.account_id = acc.account_id INNER JOIN contact as c.account_id = acc.account_id WHERE wc.connection_string = $1',
+        pool.query('SELECT acc.phone, acc.gmail, acc.name, acc.address FROM camera_event as ce INNER JOIN working_camera ON ce.workingcamera_id = working_camera.working_camera_id as wc INNER JOIN subcription as sub ON wc.subcription_id = sub.subcription_id INNER JOIN account as acc ON sub.account_id = acc.account_id INNER JOIN contact as c.account_id = acc.account_id WHERE wc.connection_string = $1',
         [connection_string],
         (error, results) => {
           if (error) {
