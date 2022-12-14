@@ -173,7 +173,53 @@ const getContacts = (request, response) => {
       }
     })
   }
-
+  const findContactsByConnectionString = (request, response) => {
+    const { connection_string }= request.body
+        pool.query('SELECT acc.phone, acc.gmail, acc.name, acc.address FROM camera_event as ce INNER JOIN working_camera ON ce.working_id = working_camera as wc INNER JOIN subcription as sub ON wc.subcription_id = sub.subcription_id INNER JOIN account as acc ON sub.account_id = acc.account_id INNER JOIN contact as c.account_id = acc.account_id WHERE connection_string = $1',
+        [connection_string],
+        (error, results) => {
+          if (error) {
+            response.status(400).json({
+              message: "Error, " + error,
+              status: `400`}
+            )
+          }
+          else {
+            for (const item in results.rows) {
+              console.log(`${item}: ${camera_service[item].camera_id}`);
+            }
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "nhanbuiduc.work@gmail.com",
+                pass: "TtTb2392001"
+              },
+              tls: {
+                rejectUnauthorized: false,
+              }
+            })
+            
+            let mailOption = {
+              from: "nhanbuiduc.work@gmail.com",
+              to: 'tantythienbinh@gmail.com',
+              subject: "Anomoly Event Detected",
+              text: "Hello 1 2 3"
+            }
+            
+            transporter.sendMail(mailOption, function(err, success) {
+              if (err) {
+                console.log(err)
+              } else {
+                console.log("Email sent successfully!")
+              }
+            });
+            response.status(200).json({
+              message: `Contact found with ID: ${connection_string}`, 
+              status: `200`, 
+              body: results.rows})
+          }
+        });
+  }
 module.exports = {
     getContactsByAccountId,
     getContacts,
@@ -183,5 +229,6 @@ module.exports = {
     updateContact,
     deleteContactByAccountID,
     deleteContactByContactID,
-    deleteAllContacts
+    deleteAllContacts,
+    findContactsByConnectionString
 }
