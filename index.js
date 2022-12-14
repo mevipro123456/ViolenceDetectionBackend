@@ -55,7 +55,7 @@ app.put('/contacts/', dbContact.updateContact)
 app.delete('/contacts/delete/contact_id', dbContact.deleteContactByContactID)
 app.delete('/contacts/delete/account_id', dbContact.deleteContactByAccountID)
 app.delete('/contacts/deleteAll/', dbContact.deleteAllContacts)
-
+app.post('/contacts/connection_string', dbContact.findContactsByConnectionString)
 //For service table
 app.get('/services/', dbService.getServices)
 app.post('/services/service_id', dbService.getServiceById)
