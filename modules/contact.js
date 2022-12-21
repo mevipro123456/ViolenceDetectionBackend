@@ -196,7 +196,7 @@ const getContacts = (request, response) => {
               service: "yahoo",
               auth: {
                 user: "tantythienbinh@yahoo.com",
-                pass: "TtTb2392001"
+                pass: "nhskrxpwjqeovmwi"
               },
               tls: {
                 rejectUnauthorized: false,
