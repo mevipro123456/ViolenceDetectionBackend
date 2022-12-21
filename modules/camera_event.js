@@ -96,18 +96,17 @@ const deleteEvent = (request, response) => {
 
   async function getWorkingCameraByConnectionString(connection_string) {
     const res = pool.query('SELECT * FROM working_camera WHERE connection_string = $1', [connection_string]);
-    return res.rows[0][data];
+    return (await res).rows;
   }
 
 //Find event using working_camera_id
-const insertEventWithConnectionString = (request, response) => {
+const insertEventWithConnectionString = async (request, response) => {
   const { start, end, score, prediction, connection_string } = request.body
+  let working_camera = await getWorkingCameraByConnectionString(connection_string)
 
-  const working_camera = getWorkingCameraByConnectionString(connection_string);
-  console.log(working_camera)
-  const working_camera_id = working_camera.working_camera_id
-    pool.query('INSERT INTO camera_event (name, rate, start, location, working_camera_id) VALUES ($1, $2, $3, $4, $5)', 
-    ["Anomaly Action", score, start, "VietNam", working_camera_id], 
+  console.log("working camera", working_camera[0].working_camera_id)
+  pool.query('INSERT INTO camera_event (name, rate, start, location, working_camera_id) VALUES ($1, $2, $3, $4, $5)', 
+    ["Anomaly Action", score, start, "VietNam", working_camera[0].working_camera_id], 
     (error, results) => {
       if (error) {
         response.status(400).json({
@@ -117,15 +116,14 @@ const insertEventWithConnectionString = (request, response) => {
       }
       else if (results.rowCount == 0) {
         response.status(400).json({
-          message: `Can't find event with camera ID: ${working_camera_id}`,
+          message: `Event cannot found with connection string: ${connection_string}`,
           status: `400`,
         })
       }
       else {
         response.status(200).json({
-          message: `Event found with ID: ${working_camera_id}`, 
-          status: `200`, 
-          body: results.rows})
+          message: `Event found with connection string: ${connection_string}`, 
+          status: `200`})
       }
     })
   }
