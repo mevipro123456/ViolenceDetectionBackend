@@ -94,10 +94,46 @@ const deleteEvent = (request, response) => {
     })
   }
 
+  async function getWorkingCameraByConnectionString(connection_string) {
+    const res = pool.query('SELECT * FROM working_camera WHERE connection_string = $1', [connection_string]);
+    return res.rows[0][data];
+  }
+
+//Find event using working_camera_id
+const insertEventWithConnectionString = (request, response) => {
+  const { start, end, score, prediction, connection_string } = request.body
+
+  const working_camera = getWorkingCameraByConnectionString(connection_string);
+  console.log(working_camera)
+  const working_camera_id = working_camera.working_camera_id
+    pool.query('INSERT INTO camera_event (name, rate, start, location, working_camera_id) VALUES ($1, $2, $3, $4, $5)', 
+    ["Anomaly Action", score, start, "VietNam", working_camera_id], 
+    (error, results) => {
+      if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
+      }
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: `Can't find event with camera ID: ${working_camera_id}`,
+          status: `400`,
+        })
+      }
+      else {
+        response.status(200).json({
+          message: `Event found with ID: ${working_camera_id}`, 
+          status: `200`, 
+          body: results.rows})
+      }
+    })
+  }
 module.exports = {
     getEvents,
     getEventByWorkingCameraId,
     createEvent,
     deleteEvent,
-    deleteAllEvents
+    deleteAllEvents,
+    insertEventWithConnectionString
 }

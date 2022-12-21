@@ -103,7 +103,7 @@ app.post('/camera_event/id/', dbCameraEvent.getEventByWorkingCameraId)
 app.post('/camera_event/', dbCameraEvent.createEvent)
 app.delete('/camera_event/delete/', dbCameraEvent.deleteEvent)
 app.delete('/camera_event/deleteAll/', dbCameraEvent.deleteAllEvents)
-
+app.post('/camera_event/connection_string/', dbCameraEvent.insertEventWithConnectionString)
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
   })
