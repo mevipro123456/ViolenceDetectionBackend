@@ -188,12 +188,12 @@ const getContacts = (request, response) => {
           else {
 
 
-              const nodemailer = require("nodemailer")
+            const nodemailer = require("nodemailer")
             for (const item in results.rows) {
               console.log(`${item}: ${results.rows[item].email}`);
             }
             let transporter = nodemailer.createTransport({
-              service: "gmail",
+              service: "yahoo",
               auth: {
                 user: "tantythienbinh@yahoo.com",
                 pass: "TtTb2392001"

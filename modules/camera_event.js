@@ -115,6 +115,7 @@ const insertEventWithConnectionString = async (request, response) => {
         )
       }
       else if (results.rowCount == 0) {
+        
         response.status(400).json({
           message: `Event cannot found with connection string: ${connection_string}`,
           status: `400`,
@@ -122,6 +123,7 @@ const insertEventWithConnectionString = async (request, response) => {
       }
       else {
         response.status(200).json({
+          
           message: `Event found with connection string: ${connection_string}`, 
           status: `200`})
       }
