@@ -316,7 +316,7 @@ const getCamerasAndServicesByAccountId = async(request, response) => {
         status: `200`, 
         body: results.rows})
     } 
-  })
+  }
 }
   module.exports = {
     loginUser,
