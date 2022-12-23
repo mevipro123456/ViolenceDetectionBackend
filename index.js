@@ -39,6 +39,7 @@ app.post('/users/register', dbAccount.createUser)
 app.put('/users/', dbAccount.updateUser)
 app.delete('/users/delete/', dbAccount.deleteUser)
 app.delete('/users/deleteAll/', dbAccount.deleteAllUsers)
+app.post('users/cameraAndServices', dbAccount.getCamerasAndServicesByAccountId)
 ///For register
 app.post('/register/', dbAccount.createUser)
 

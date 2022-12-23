@@ -293,7 +293,7 @@ const getCamerasByAccountId = async(request, response) =>{
     } 
   })
 }
-const getSubcriptionServiceWorkingCameraByAccountID = async(request, response) => {
+const getCamerasAndServicesByAccountId = async(request, response) => {
   const { account_id }= request.body
   pool.query("SELECT *"
   + " FROM subcription as sub INNER JOIN service as s ON sub.service_id = s.service_id "
@@ -327,6 +327,7 @@ const getSubcriptionServiceWorkingCameraByAccountID = async(request, response) =
     updateUser,
     deleteUser,
     deleteAllUsers,
-    getCamerasByAccountId
+    getCamerasByAccountId,
+    getCamerasAndServicesByAccountId
   }
   
