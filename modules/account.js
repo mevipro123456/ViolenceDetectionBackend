@@ -1,3 +1,4 @@
+const { request, response } = require('express')
 const pool =  require('../config')
 
 //Login user
@@ -287,6 +288,29 @@ const getCamerasByAccountId = async(request, response) =>{
     else {
       response.status(200).json({
         message: `All Camera found with account ID: ${account_id}`, 
+        status: `200`, 
+        body: results.rows})
+    } 
+  })
+}
+const getSubcriptionServiceWorkingCameraByAccountID = async(request, response) => {
+  const { account_id }= request.body
+  pool.query("SELECT *"
+  + " FROM subcription as sub INNER JOIN service as s ON sub.service_id = s.service_id "
+  + " INNER JOIN working_camera as wc on sub.subcription_id = wc.subcription_id"
+  + " INNER JOIN camera as c on c.camera_id = wc.camera_id"
+  [account_id],
+  (error, results) => {
+    if (error) {
+      response.status(400).json({
+        message: "Error, " + error,
+        status: `400`}
+      )
+      
+    }
+    else {
+      response.status(200).json({
+        message: `All Camera and services found with account ID: ${account_id}`, 
         status: `200`, 
         body: results.rows})
     } 

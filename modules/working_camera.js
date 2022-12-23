@@ -117,7 +117,6 @@ const updateWorkingCameras = (request, response) => {
         }
       })
 }
-
 module.exports = {
     getWorkingCameras,
     getWorkingCameraBySubcriptionId,
