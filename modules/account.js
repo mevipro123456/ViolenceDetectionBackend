@@ -295,10 +295,12 @@ const getCamerasByAccountId = async(request, response) =>{
 }
 const getCamerasAndServicesByAccountId = async(request, response) => {
   const { account_id }= request.body
-  pool.query("SELECT *"
+  const query = "SELECT *"
   + " FROM subcription as sub INNER JOIN service as s ON sub.service_id = s.service_id "
-  + " INNER JOIN working_camera as wc on sub.subcription_id = wc.subcription_id"
-  + " INNER JOIN camera as c on c.camera_id = wc.camera_id"
+  + " INNER JOIN working_camera as wc ON  wc.subcription_id = sub.subcription_id"
+  + " INNER JOIN camera as c ON c.camera_id = wc.camera_id"
+  + " WHERE sub.account_id = $1 AND sub.expired = false"
+  pool.query(query)
   [account_id],
   (error, results) => {
     if (error) {
