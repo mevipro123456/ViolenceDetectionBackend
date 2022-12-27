@@ -100,8 +100,8 @@ const deleteAllWorkingCameras = (request, response) => {
 }
 //List all working cameras in table, sort by id
 const updateWorkingCameras = (request, response) => {
-  const { working_camera_id, connection_string}= request.body
-      pool.query('UPDATE working_camera SET connection_string = $1 WHERE working_camera_id = $2', [connection_string, working_camera_id], (error, results) => {
+  const { working_camera_id, connection_string, last_notification}= request.body
+      pool.query('UPDATE working_camera SET connection_string = $1, last_notification = $2 WHERE working_camera_id = $3', [connection_string, last_notification, working_camera_id], (error, results) => {
         if (error) {
           response.status(400).json({
             message: "Error, " + error,
