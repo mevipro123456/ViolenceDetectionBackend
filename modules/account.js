@@ -2,33 +2,65 @@ const { request, response } = require('express')
 const pool =  require('../config')
 
 //Login user
-const loginUser = (request, response) => {
-  const { email, password } = request.body
-  pool.query('SELECT * FROM account WHERE email = $1 AND password = $2', [email, password], (error, results) => {
-    if (error) {
-      response.status(400).json({
-        message: "Error, " + error,
-        status: `400`}
-      )
-    }
-    else if (results.rowCount == 0) {
-      response.status(400).json({
-        message: `Incorrect email or password! `,
-        status: `400`,
-        email: email,
-        password: password
-      })
-    }
-    else {
-      response.status(200).json({
-        message: `OK`, 
-        status: `200`, 
-        body: results.rows})
-    }
-  })
+// const loginUser = (request, response) => {
+//   const { email, password } = request.body
+//   pool.query('SELECT * FROM account WHERE email = $1 AND password = $2', [email, password], (error, results) => {
+//     if (error) {
+//       response.status(400).json({
+//         message: "Error, " + error,
+//         status: `400`}
+//       )
+//     }
+//     else if (results.rowCount == 0) {
+//       response.status(400).json({
+//         message: `Incorrect email or password! `,
+//         status: `400`,
+//         email: email,
+//         password: password
+//       })
+//     }
+//     else {
+//       response.status(200).json({
+//         message: `OK`, 
+//         status: `200`, 
+//         body: results.rows})
+//     }
+//   })
   
-}
-
+// }
+  //Login user
+  const loginUser = (request, response) => {
+    const { email, password } = request.body
+    pool.query('SELECT * FROM account WHERE email = $1 AND password = $2', [email, password], (error, results) => {
+      if (error) {
+        response.status(400).json({
+          message: "Error, " + error,
+          status: `400`}
+        )
+      }
+      else if (results.rowCount == 0) {
+        response.status(400).json({
+          message: 'Incorrect email or password!' ,
+          status: 400,
+          email: email,
+          password: password
+        })
+      }
+      else {
+        let date = new Date().toLocaleDateString()
+        let checkend_date = selectFrom('sc.end_date','subcription as sc INNER JOIN account as acc ON sc.account_id = acc.account_id','WHERE sc.account_id = ' + results.account_id)
+        if (checkend_date <= date)
+        {
+          changeToExpire(results.account_id)
+        }
+        response.status(200).json({
+          message: OK, 
+          status: 200, 
+          body: date})
+      }
+    })
+    
+  }
 //List all users in table, sort by id
 const getUsers = (request, response) => {
     pool.query('SELECT * FROM account ORDER BY account_id ASC', (error, results) => {
@@ -172,6 +204,16 @@ async function selectFrom(data, table, condition) {
     return err.stack;
   }
 }
+async function changeToExpire(id){
+  try {
+    const res = await pool.query(
+      `UPDATE subcription SET expired = TRUE WHERE account_id = ${id}`
+    );
+  } catch (err) {
+    return err.stack;
+  }
+}
+
 async function whateverFuncName () {
   var result = await selectFrom('amount','total_nonfarm_monthly_sa', `WHERE month='2019-08-31'`);
   console.log(result);
@@ -295,6 +337,8 @@ const getCamerasByAccountId = async(request, response) =>{
 }
 const getCamerasAndServicesByAccountId = async(request, response) => {
   const { account_id } = request.body
+
+  
   const query = "SELECT c.image, s.membership, sub.end_date,"
   + " sub.expired, wc.connection_string, c.model_number, sub.subcription_id, wc.working_camera_id"
   + " FROM subcription as sub INNER JOIN service as s ON sub.service_id = s.service_id"
