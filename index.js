@@ -23,8 +23,12 @@ app.use(
 )
 const cors = require('cors');
 
-app.use(cors({ origin: true }));
+// app.use(cors({ origin: true }));
+var corsOptions = {
+  origin: "http://localhost:3000"
+};
 
+app.use(cors(corsOptions));
 app.get('/', (request, response) => {
    response.json({ info: 'Node.js, Express, and Postgres API' })
   })
