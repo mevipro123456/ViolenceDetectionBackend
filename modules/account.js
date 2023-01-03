@@ -54,7 +54,7 @@ const pool =  require('../config')
           changeToExpire(results.account_id)
         }
         response.status(200).json({
-          message: OK, 
+          message: 'OK', 
           status: 200, 
           body: date})
       }
